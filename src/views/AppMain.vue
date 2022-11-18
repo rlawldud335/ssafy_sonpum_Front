@@ -155,7 +155,6 @@ export default {
   margin: 30px;
   background: linear-gradient(45deg, #886fbf, #3876f2 70%);
   border-radius: 20px;
-  max-width: ;
 }
 
 .main-tabs-item {
