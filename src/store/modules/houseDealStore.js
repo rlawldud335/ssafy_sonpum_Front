@@ -106,17 +106,18 @@ const houseDealStore = {
         }
       );
     },
-    getHouseList: ({ commit }, dongCode) => {
-      console.log("# 거래내역 가져오기 - 동코드: " + dongCode);
-      const params = { dongCode };
-      //console.log("# 검색조건 가져오기: " + key + " " + word);
+    getHouseList: ({ commit }, dong) => {
+      console.log("# 검색조건 가져오기 ", dong.dongCode, dong.key, dong.word);
+      const params = {
+        dongCode: dong.dongCode,
+        key: dong.searchKey,
+        word: dong.searchWord,
+      };
 
       houseDealList(
         params,
         ({ data }) => {
           console.log("# 거래내역 가져오기 성공");
-          //commit("SET_HOUSE_LIST", data.response.body.items.item);
-          //commit("SET_HOUSE_LIST", data.houseDealInfoDto);
           commit("SET_HOUSE_LIST", data);
         },
         (error) => {

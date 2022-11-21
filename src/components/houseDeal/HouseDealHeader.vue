@@ -97,11 +97,14 @@ export default {
       if (this.gugunCode) this.getDong(this.gugunCode);
     },
     houseList() {
-      console.log("# 얻어온 dongCode: " + this.dongCode);
-      console.log("# 검색조건 ", this.searchKey, this.searchWord);
-
+      //console.log("# 얻어온 dongCode: " + this.dongCode);
+      console.log("# Header - 검색조건 ", this.searchKey, this.searchWord);
       if (this.dongCode) {
-        this.getHouseList(this.dongCode);
+        this.getHouseList({
+          dongCode: this.dongCode,
+          key: this.searchKey,
+          word: this.searchWord,
+        });
       }
     },
   },
