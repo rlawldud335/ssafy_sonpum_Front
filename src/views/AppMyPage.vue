@@ -1,9 +1,9 @@
 <template>
-  <v-container style="height: 100%">
+  <v-container style="height: 100%; padding-left: 10%; padding-right: 10%">
     <v-row style="height: 100%">
       <v-col cols="3">
         <div class="mypage-profile">
-          <div class="mypage-profile-image">프로필</div>
+          <div class="mypage-profile-image"></div>
           <div class="mypage-user-name">userId</div>
           <div class="mypage-user-role">관리자</div>
         </div>

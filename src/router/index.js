@@ -13,6 +13,7 @@ import MyPageUserInfo from "@/components/mypage/MyPageUserInfo";
 import MyHouseProduct from "@/components/mypage/MyHouseProduct";
 import MyHouseProductReview from "@/components/mypage/MyHouseProductReview";
 import MyBookMark from "@/components/mypage/MyBookMark";
+import AppHouseProductDetail from "@/views/AppHouseProductDetail";
 
 Vue.use(VueRouter);
 
@@ -26,39 +27,46 @@ const routes = [
     path: "/houseDeal",
     name: "houseDeal",
     component: AppHouseDeal,
-  }, {
+  },
+  {
     path: "/houseProduct",
     name: "houseProduct",
-    component: AppHouseProduct
+    component: AppHouseProduct,
+  },
+  {
+    path: "/houseProductDetail/:productId",
+    name: "houseProductDetail",
+    component: AppHouseProductDetail,
   },
   {
     path: "/boardReport",
     name: "boardReport",
     component: AppBoardReport,
-    redirect:"/boardReport/list",
+    redirect: "/boardReport/list",
     children: [
       {
         path: "list",
         name: "BoardReportList",
-        component: BoardReportList
+        component: BoardReportList,
       },
       {
         path: "write",
         name: "BoardReportWrite",
-        component: BoardReportWrite
+        component: BoardReportWrite,
       },
       {
         path: "detail/:articleno",
         name: "BoardReportDetail",
-        component: BoardReportDetail
+        component: BoardReportDetail,
       },
       {
         path: "update/:articleno",
         name: "BoardReportUpdate",
-        component: BoardReportUpdate
-      }
-    ]
-  }, {
+        component: BoardReportUpdate,
+      },
+    ],
+  },
+  {
     path: "/mypage",
     name: "MyPage",
     component: AppMyPage,
@@ -67,25 +75,25 @@ const routes = [
       {
         path: "userinfo",
         name: "MyPageUserInfo",
-        component: MyPageUserInfo
+        component: MyPageUserInfo,
       },
       {
         path: "bookmark",
         name: "MyBookMark",
-        component: MyBookMark
+        component: MyBookMark,
       },
       {
         path: "houseproduct",
         name: "MyHouseProduct",
-        component: MyHouseProduct
+        component: MyHouseProduct,
       },
       {
         path: "review",
         name: "MyHouseProductReview",
-        component: MyHouseProductReview
-      }
-    ]
-  }
+        component: MyHouseProductReview,
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

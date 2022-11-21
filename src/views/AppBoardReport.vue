@@ -1,5 +1,5 @@
 <template>
-  <v-container class="board-report">
+  <v-container class="board-report col-lg-8">
     <div class="board-report__title">
       <div style="width: 300px; height: 35px">
         <v-img contain :src="require('@/assets/img/REPORT_BOARD.png')"></v-img>

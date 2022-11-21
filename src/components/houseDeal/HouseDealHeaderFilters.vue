@@ -1,46 +1,112 @@
 <template>
   <div class="filters">
     <div class="filter">
-      <v-btn elevation="2" class="filter-btn" @click="showAmount = !showAmount">금액</v-btn>
+      <v-btn
+        elevation="2"
+        class="filter-btn"
+        @click="
+          closedShow();
+          showAmount = true;
+        "
+        :style="{
+          'background-color': selected.key == 'amount' ? '#886fbf' : '',
+          color: selected.key == 'amount' ? 'white' : 'black',
+        }"
+        >금액</v-btn
+      >
       <div v-show="showAmount" class="filter-content">
         <div class="filter-content-top">
           <p class="filter-content-title">금액</p>
           <v-icon @click="showAmount = !showAmount">mdi-close</v-icon>
         </div>
         <div>
-          <v-text-field :value="amount" suffix="만원 이하"></v-text-field>
+          <v-text-field
+            :value="filterData.amount"
+            suffix="만원 이하"
+          ></v-text-field>
+        </div>
+        <div class="filter-select-btn">
+          <v-btn color="primary" @click="selectFilter('amount')"
+            >필터적용</v-btn
+          >
         </div>
       </div>
     </div>
 
     <div class="filter">
-      <v-btn elevation="2" class="filter-btn" @click="showArea = !showArea">면적</v-btn>
+      <v-btn
+        elevation="2"
+        class="filter-btn"
+        @click="
+          closedShow();
+          showArea = true;
+        "
+        :style="{
+          'background-color': selected.key == 'area' ? '#886fbf' : '',
+          color: selected.key == 'area' ? 'white' : 'black',
+        }"
+        >면적</v-btn
+      >
       <div v-show="showArea" class="filter-content">
         <div class="filter-content-top">
           <p class="filter-content-title">면적</p>
           <v-icon @click="showArea = !showArea">mdi-close</v-icon>
         </div>
         <div>
-          <v-text-field :value="area" suffix="평 이상"></v-text-field>
+          <v-text-field
+            :value="filterData.area"
+            suffix="평 이상"
+          ></v-text-field>
+        </div>
+        <div class="filter-select-btn">
+          <v-btn color="primary" @click="selectFilter('area')">필터적용</v-btn>
         </div>
       </div>
     </div>
 
     <div class="filter">
-      <v-btn elevation="2" class="filter-btn" @click="showFloor = !showFloor">층</v-btn>
+      <v-btn
+        elevation="2"
+        class="filter-btn"
+        @click="
+          closedShow();
+          showFloor = true;
+        "
+        :style="{
+          'background-color': selected.key == 'floor' ? '#886fbf' : '',
+          color: selected.key == 'floor' ? 'white' : 'black',
+        }"
+        >층</v-btn
+      >
       <div v-show="showFloor" class="filter-content">
         <div class="filter-content-top">
           <p class="filter-content-title">층</p>
           <v-icon @click="showFloor = !showFloor">mdi-close</v-icon>
         </div>
         <div>
-          <v-text-field :value="floor" suffix="층 이상"></v-text-field>
+          <v-text-field
+            :value="filterData.floor"
+            suffix="층 이상"
+          ></v-text-field>
+        </div>
+        <div class="filter-select-btn">
+          <v-btn color="primary" @click="selectFilter('floor')">필터적용</v-btn>
         </div>
       </div>
     </div>
 
     <div class="filter">
-      <v-btn elevation="2" class="filter-btn" @click="showBuildYear = !showBuildYear"
+      <v-btn
+        elevation="2"
+        class="filter-btn"
+        @click="
+          closedShow();
+          showBuildYear = true;
+        "
+        :style="{
+          'background-color': selected.key == 'buildYear' ? '#886fbf' : '',
+          color: selected.key == 'buildYear' ? 'white' : 'black',
+        }"
         >건설년도</v-btn
       >
       <div v-show="showBuildYear" class="filter-content">
@@ -49,26 +115,61 @@
           <v-icon @click="showBuildYear = !showBuildYear">mdi-close</v-icon>
         </div>
         <div>
-          <v-text-field :value="buildYear" suffix="년 이상"></v-text-field>
+          <v-text-field
+            :value="filterData.buildYear"
+            suffix="년 이상"
+          ></v-text-field>
+        </div>
+        <div class="filter-select-btn">
+          <v-btn color="primary" @click="selectFilter('buildYear')"
+            >필터적용</v-btn
+          >
         </div>
       </div>
     </div>
 
     <div class="filter">
-      <v-btn elevation="2" class="filter-btn" @click="showDealDate = !showDealDate">거래기간</v-btn>
+      <v-btn
+        elevation="2"
+        class="filter-btn"
+        @click="
+          closedShow();
+          showDealDate = true;
+        "
+        :style="{
+          'background-color': selected.key == 'dealDate' ? '#886fbf' : '',
+          color: selected.key == 'dealDate' ? 'white' : 'black',
+        }"
+        >거래기간</v-btn
+      >
       <div v-show="showDealDate" class="filter-content">
         <div class="filter-content-top">
           <p class="filter-content-title">거래기간</p>
           <v-icon @click="showDealDate = !showDealDate">mdi-close</v-icon>
         </div>
         <div>
-          <v-date-picker v-model="dealDate" type="month"></v-date-picker>
+          <v-date-picker
+            v-model="filterData.dealDate"
+            type="month"
+          ></v-date-picker>
+        </div>
+        <div class="filter-select-btn">
+          <v-btn color="primary" @click="selectFilter('dealDate')"
+            >필터적용</v-btn
+          >
         </div>
       </div>
     </div>
 
     <div class="filter-apart-name">
-      <v-text-field label="아파트 이름" solo dense hide-details></v-text-field>
+      <v-text-field
+        v-model="filterData.aptName"
+        label="아파트 이름"
+        solo
+        dense
+        hide-details
+        @keyup="onAptName"
+      ></v-text-field>
     </div>
   </div>
 </template>
@@ -83,15 +184,43 @@ export default {
       showFloor: false,
       showBuildYear: false,
       showDealDate: false,
-      amount: 50,
-      area: 50,
-      floor: 1,
-      buildYear: "2022",
-      dealDate: "2022-03",
+      filterData: {
+        amount: 0,
+        area: 0,
+        floor: 0,
+        buildYear: "2022",
+        dealDate: "2020-03",
+        aptName: "",
+      },
+      selected: {
+        key: "",
+        word: "",
+      },
     };
   },
-  methods: {},
-  watch: {},
+  methods: {
+    selectFilter(select) {
+      if (select == this.selected.key) {
+        this.selected.key = "";
+      } else {
+        this.selected.key = select;
+        this.selected.word = this.filterData[select];
+      }
+    },
+    onAptName() {
+      if (this.filterData.aptName != "") {
+        this.selected.key = "aptName";
+        this.selected.word = this.filterData.aptName;
+      }
+    },
+    closedShow() {
+      this.showAmount = false;
+      this.showArea = false;
+      this.showFloor = false;
+      this.showBuildYear = false;
+      this.showDealDate = false;
+    },
+  },
 };
 </script>
 
@@ -142,5 +271,10 @@ export default {
   display: flex;
   align-items: center;
   margin: 0px 20px;
+}
+
+.filter-select-btn {
+  display: flex;
+  justify-content: center;
 }
 </style>
