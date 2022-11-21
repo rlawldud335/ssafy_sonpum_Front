@@ -8,7 +8,9 @@ const houseProductStore = {
     guguns: [{ value: null, text: "구군 선택" }],
     dongs: [{ value: null, text: "동 선택" }],
     products: [],
-    filter: {},
+    product: null,
+    searchKey: null,
+    searchWord: null,
   },
   getters: {},
   mutations: {
@@ -23,9 +25,13 @@ const houseProductStore = {
     },
     CLEAR_PRODUCT_LIST(state) {
       state.products = [];
+      state.product = null; 
     },
-    CLEAR_FILTER(state) {
-      state.filter = {};
+    CLEAR_SEARCH_KEY(state) {
+      state.searchKey = null;
+    },
+    CLEAR_SEARCH_WORD(state) {
+      state.searchWord = null;
     },
     SET_SIDO_LIST(state, sidos) {
       sidos.forEach(function (code) {
@@ -45,9 +51,13 @@ const houseProductStore = {
     },
     SET_PRODUCT_LIST(state, products) {
       state.products = products;
+      console.log("# 아파트 매물: ", products);
     },
-    SET_FILTER(state, filter) {
-      state.filter = filter;
+    SET_SEARCH_KEY(state, key) {
+      state.searchKey = key;
+    },
+    SET_SEARCH_WORD(state, word) {
+      state.searchWord = word;
     },
   },
   actions: {
@@ -94,12 +104,14 @@ const houseProductStore = {
         }
       );
     },
-    getProductList: ({ commit }, dongCode, key, word) => {
+    getProductList: ({ commit }, dong) => {
+      console.log("# 검색조건 가져오기 ", dong.dongCode, dong.key, dong.word);
       const params = {
-        dongCode,
-        key,
-        word,
+        dongCode: dong.dongCode,
+        key: dong.key,
+        word: dong.word,
       };
+
       houseProductList(
         params,
         ({ data }) => {

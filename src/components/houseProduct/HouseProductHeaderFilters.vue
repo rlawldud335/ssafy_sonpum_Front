@@ -175,7 +175,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 const houseProductStore = "houseProductStore";
 
@@ -202,23 +202,35 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(houseProductStore, ["searchKey", "searchWord"]),
+  },
   methods: {
-    ...mapMutations(houseProductStore, ["CLEAR_FILTER", "SET_FILTER"]),
+    ...mapMutations(houseProductStore, [
+      "CLEAR_SEARCH_KEY",
+      "CLEAR_SEARCH_WORD",
+      "SET_SEARCH_KEY",
+      "SET_SEARCH_WORD",
+    ]),
     selectFilter(select) {
       if (select == this.selected.key) {
         this.selected.key = "";
         this.selected.word = "";
-        this.CLEAR_FILTER();
+        this.CLEAR_SEARCH_KEY(this.selected.key);
+        this.CLEAR_SEARCH_WORD(this.selected.word);
       } else {
         this.selected.key = select;
         this.selected.word = this.filterData[select];
-        this.SET_FILTER(this.selected);
+        this.SET_SEARCH_KEY(this.selected.key);
+        this.SET_SEARCH_WORD(this.selected.word);
       }
     },
     onAptName() {
       if (this.filterData.aptName != "") {
         this.selected.key = "aptName";
         this.selected.word = this.filterData.aptName;
+        this.SET_SEARCH_KEY(this.selected.key);
+        this.SET_SEARCH_WORD(this.selected.word);
       }
     },
     closedShow() {

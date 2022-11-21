@@ -1,6 +1,7 @@
 <template>
   <div id="house-deal-main">
     <house-product-header></house-product-header>
+    <house-product-list></house-product-list>
     <div id="house-deal-result">
       <div>매물 검색 결과</div>
       <div
@@ -28,9 +29,10 @@
 import KakaoMap from "@/components/map/KakaoMap.vue";
 import HouseProductHeader from "@/components/houseProduct/HouseProductHeader.vue";
 import HouseProductItem from "@/components/houseProduct/HouseProductItem.vue";
+import HouseProductList from "@/components/houseProduct/HouseProductList.vue";
 
 export default {
-  components: { KakaoMap, HouseProductHeader, HouseProductItem },
+  components: { KakaoMap, HouseProductHeader, HouseProductItem, HouseProductList },
   name: "AppHouseProduct",
   props: {},
   comments: {
