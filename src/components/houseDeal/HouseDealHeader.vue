@@ -3,48 +3,44 @@
     <div class="address-selects">
       <v-select
         class="mx-2"
-        :items="sidoList"
-        item-text="sidoName"
-        item-value="sidoCode"
         label="시도 선택"
         dense
         solo
         hide-details
+        :items="sidos"
         v-model="sidoCode"
-        @change="getGugunList"
+        @change="gugunList"
       ></v-select>
       <v-select
         class="mx-2"
-        :items="gugunList"
-        item-text="gugunName"
-        item-value="gugunCode"
         label="구군 선택"
         dense
         solo
         hide-details
+        :items="guguns"
         v-model="gugunCode"
-        @change="getDongList"
+        @change="dongList"
       ></v-select>
       <v-select
         class="mx-2"
-        :items="dongList"
-        item-text="dongName"
-        item-value="dongCode"
         label="동 선택"
         dense
         solo
         hide-details
+        :items="dongs"
         v-model="dongCode"
       ></v-select>
     </div>
     <house-deal-header-filters></house-deal-header-filters>
-    <v-btn class="error" v-on:click="getAptDealList">검색</v-btn>
+    <v-btn class="error" v-on:click="houseList">검색</v-btn>
   </div>
 </template>
 
 <script>
 import HouseDealHeaderFilters from "@/components/houseDeal/HouseDealHeaderFilters.vue";
-import { apiSidoList, apiGugunList, apiDongList } from "@/api/house.js";
+import { mapState, mapActions, mapMutations } from "vuex";
+
+const houseDealStore = "houseDealStore";
 
 export default {
   name: "HouseDealHeader",
@@ -53,57 +49,47 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
-      sidoList: [],
-      gugunList: [],
-      dongList: [],
-      filters: {},
-      aptDealList: [],
     };
   },
+  computed: {
+    ...mapState(houseDealStore, ["sidos", "guguns", "dongs", "houses"]),
+  },
   created() {
-    apiSidoList(
-      ({ data }) => {
-        this.sidoList = data;
-      },
-      () => {
-        console.log("apiSidoList Fail");
-      }
-    );
+    this.CLEAR_SIDO_LIST();
+    this.CLEAR_APT_LIST();
+    this.getSido();
   },
   components: {
     HouseDealHeaderFilters,
   },
   methods: {
-    getGugunList() {
-      if (this.sidoCode) {
-        apiGugunList(
-          { sido: this.sidoCode },
-          ({ data }) => {
-            this.gugunList = data;
-          },
-          () => {
-            console.log("apiGugunList Fail");
-          }
-        );
-      }
+    ...mapActions(houseDealStore, [
+      "getSido",
+      "getGugun",
+      "getDong",
+      "getHouseList",
+    ]),
+    ...mapMutations(houseDealStore, [
+      "CLEAR_SIDO_LIST",
+      "CLEAR_GUGUN_LIST",
+      "CLEAR_DONG_LIST",
+      "CLEAR_APT_LIST",
+    ]),
+    gugunList() {
+      console.log("# 얻어온 sidoCode: " + this.sidoCode);
+      this.CLEAR_GUGUN_LIST();
+      this.gugunCode = null;
+      if (this.sidoCode) this.getGugun(this.sidoCode);
     },
-
-    getDongList() {
-      if (this.gugunCode) {
-        apiDongList(
-          { gugun: this.gugunCode },
-          ({ data }) => {
-            this.dongList = data;
-          },
-          () => {
-            console.log("apiDongList Fail");
-          }
-        );
-      }
+    dongList() {
+      console.log("# 얻어온 gugunCode: " + this.gugunCode);
+      this.CLEAR_DONG_LIST();
+      this.dongCode = null;
+      if (this.gugunCode) this.getDong(this.gugunCode);
     },
-
-    getAptDealList() {
-      console.log(this.dongCode);
+    houseList() {
+      console.log("# 얻어온 dongCode: " + this.dongCode);
+      if (this.dongCode) this.getHouseList(this.dongCode);
     },
   },
 };
