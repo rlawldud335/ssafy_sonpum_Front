@@ -8,6 +8,8 @@ const houseDealStore = {
     dongs: [{ value: null, text: "동을 선택하세요" }],
     houses: [],
     house: null,
+    searchKey: null,
+    searchWord: null,
   },
   getters: {},
   mutations: {
@@ -23,6 +25,12 @@ const houseDealStore = {
     CLEAR_APT_LIST(state) {
       state.houses = [];
       state.house = null;
+    },
+    CLEAR_SEARCH_KEY(state) {
+      state.searchKey = null;
+    },
+    CLEAR_SEARCH_WORD(state) {
+      state.searchWord = null;
     },
     SET_SIDO_LIST(state, sidos) {
       sidos.forEach(function (code) {
@@ -42,9 +50,16 @@ const houseDealStore = {
     },
     SET_HOUSE_LIST(state, houses) {
       state.houses = houses;
+      //console.log("# 아파트 거래내역 ", houses);
     },
     SET_DETAIL_HOUSE(state, house) {
       state.house = house;
+    },
+    SET_SEARCH_KEY(state, key) {
+      state.searchKey = key;
+    },
+    SET_SEARCH_WORD(state, word) {
+      state.searchWord = word;
     },
   },
   actions: {
@@ -94,13 +109,15 @@ const houseDealStore = {
     getHouseList: ({ commit }, dongCode) => {
       console.log("# 거래내역 가져오기 - 동코드: " + dongCode);
       const params = { dongCode };
+      //console.log("# 검색조건 가져오기: " + key + " " + word);
 
       houseDealList(
         params,
         ({ data }) => {
           console.log("# 거래내역 가져오기 성공");
           //commit("SET_HOUSE_LIST", data.response.body.items.item);
-          commit("SET_HOUSE_LIST", data.houseDealInfoDto);
+          //commit("SET_HOUSE_LIST", data.houseDealInfoDto);
+          commit("SET_HOUSE_LIST", data);
         },
         (error) => {
           console.log("# actions - houseDealList 에러: " + error);

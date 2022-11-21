@@ -49,10 +49,19 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
+      key: null,
+      word: null,
     };
   },
   computed: {
-    ...mapState(houseDealStore, ["sidos", "guguns", "dongs", "houses"]),
+    ...mapState(houseDealStore, [
+      "sidos",
+      "guguns",
+      "dongs",
+      "houses",
+      "searchKey",
+      "searchWord",
+    ]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
@@ -89,7 +98,11 @@ export default {
     },
     houseList() {
       console.log("# 얻어온 dongCode: " + this.dongCode);
-      if (this.dongCode) this.getHouseList(this.dongCode);
+      console.log("# 검색조건 ", this.searchKey, this.searchWord);
+
+      if (this.dongCode) {
+        this.getHouseList(this.dongCode);
+      }
     },
   },
 };
