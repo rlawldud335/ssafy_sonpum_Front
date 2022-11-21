@@ -21,7 +21,7 @@
         </div>
         <div>
           <v-text-field
-            :value="filterData.amount"
+            v-model="filterData.amount"
             suffix="만원 이하"
           ></v-text-field>
         </div>
@@ -54,7 +54,7 @@
         </div>
         <div>
           <v-text-field
-            :value="filterData.area"
+            v-model="filterData.area"
             suffix="평 이상"
           ></v-text-field>
         </div>
@@ -85,7 +85,7 @@
         </div>
         <div>
           <v-text-field
-            :value="filterData.floor"
+            v-model="filterData.floor"
             suffix="층 이상"
           ></v-text-field>
         </div>
@@ -116,7 +116,7 @@
         </div>
         <div>
           <v-text-field
-            :value="filterData.buildYear"
+            v-model="filterData.buildYear"
             suffix="년 이상"
           ></v-text-field>
         </div>
@@ -175,6 +175,10 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+
+const houseDealStore = "houseDealStore";
+
 export default {
   name: "HouseDealHeaderFilters",
   data() {
@@ -198,19 +202,34 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(houseDealStore, ["searchKey", "searchWord"]),
+  },
   methods: {
+    ...mapMutations(houseDealStore, [
+      "CLEAR_SEARCH_KEY",
+      "CLEAR_SEARCH_WORD",
+      "SET_SEARCH_KEY",
+      "SET_SEARCH_WORD",
+    ]),
     selectFilter(select) {
       if (select == this.selected.key) {
         this.selected.key = "";
+        this.CLEAR_SEARCH_KEY(this.selected.key);
+        this.CLEAR_SEARCH_WORD(this.selected.word);
       } else {
         this.selected.key = select;
         this.selected.word = this.filterData[select];
+        this.SET_SEARCH_KEY(this.selected.key);
+        this.SET_SEARCH_WORD(this.selected.word);
       }
     },
     onAptName() {
       if (this.filterData.aptName != "") {
         this.selected.key = "aptName";
         this.selected.word = this.filterData.aptName;
+        this.SET_SEARCH_KEY(this.selected.key);
+        this.SET_SEARCH_WORD(this.selected.word);
       }
     },
     closedShow() {
