@@ -17,15 +17,6 @@ function dongList(gugun, success, fail) {
 function houseDealList(params, success, fail) {
   console.log("## 아파트 거래내역 검색조건: " + params.dongCode);
   console.log("## params: ", params);
-  //api.post(`/map/apt`, dealParams).then(success).catch(fail);
-  // api.post(`/map/apt`, params).then(success).catch(fail);
-
-  // const form = new FormData();
-  // form.append("dongCode", params.dongCode);
-  // api.post(`/map/apt`, form).then(success).catch(fail);
-
-  // const form = new FormData();
-  // form.append("dongCode", params.dongCode);
   api.post(`/map/apt`, params).then(success).catch(fail);
 }
 
