@@ -1,15 +1,14 @@
 <template>
-  <div class="user-info-main">
-    <!-- <div class="user-profile-image">profile</div>
-    <div class="user-id">
-      <span>userId | </span>
-      <span>userRole</span>
+  <div class="myhouse-product-main">
+    <div class="myhouse-product-title">
+      <span>회원정보</span>
+      <div>
+        <v-btn class="primary mx-3">수정하기</v-btn>
+        <v-btn class="error">탈퇴하기</v-btn>
+      </div>
     </div>
-    <div class="user-name">userName</div>
-    <div class="user-name">userEmail</div>
-    <div class="user-name">userPhoneNumber</div>
-    <v-btn>회원정보 수정하기</v-btn> -->
-    회원정보
+
+    <div>회원정보</div>
   </div>
 </template>
 
