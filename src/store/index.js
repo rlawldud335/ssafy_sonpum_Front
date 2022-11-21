@@ -5,6 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 // module import
 import memberStore from "@/store/modules/memberStore";
 import houseDealStore from "@/store/modules/houseDealStore";
+import houseProductStore from "@/store/modules/houseProductStore";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     memberStore,
     houseDealStore,
+    houseProductStore,
   },
   plugins: [
     createPersistedState({
