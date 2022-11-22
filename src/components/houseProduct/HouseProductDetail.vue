@@ -17,11 +17,15 @@
       </v-carousel>
 
       <div class="detail-content">
-        <p>매물 정보: {{ product.houseProductId }}</p>
-        <p>판매자: {{ product.userId }}</p>
-        <p>주소: {{ product.addressId }}</p>
-        <p>건물이름: {{ product.buildYear }}</p>
-        <p>건물이름: {{ product.addressId }}</p>
+        <p>매물 번호: {{ product.houseProductId }}</p>
+        <p>판매자 ID: {{ product.userId }}</p>
+        <p>
+          주소:
+          {{ product.roadName }} {{ product.roadNameBonbun }} -
+          {{ product.roadNameBubun }}
+        </p>
+        <p>건축년도: {{ product.buildYear }}</p>
+        <p>건물이름: {{ product.apartName }}</p>
         <p>층: {{ product.floor }}</p>
         <p>면적: {{ product.area }}</p>
         <p>거래유형: {{ product.dealType }}</p>
@@ -31,6 +35,7 @@
             (parseInt(product.dealAmount.replace(",", "")) * 10000) | price
           }}원
         </p>
+        <!-- 0 이면 판매 안된 상태, 1 이면 판매완료 상태 -->
         <p>판매여부: {{ product.stateFlag }}</p>
       </div>
     </div>
