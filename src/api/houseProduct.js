@@ -8,5 +8,9 @@ function houseProductList(params, success, fail) {
   console.log("## params: ", params);
   api.post(`/houseProduct/list`, params).then(success).catch(fail);
 }
+function productDetail(product, success, fail) {
+  console.log("## product: ", product);
+  api.get(`/houseProduct/${product.houseProductId}`).then(success).catch(fail);
+}
 
-export { houseProductList };
+export { houseProductList, productDetail };

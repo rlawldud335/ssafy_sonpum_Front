@@ -1,5 +1,5 @@
 import { sidoList, gugunList, dongList } from "@/api/house.js";
-import { houseProductList } from "@/api/houseProduct.js";
+import { houseProductList, productDetail } from "@/api/houseProduct.js";
 
 const houseProductStore = {
   namespaced: true,
@@ -61,6 +61,7 @@ const houseProductStore = {
     },
     SET_DETAIL_PRODUCT(state, product) {
       state.product = product;
+      console.log("# 매물 상세조회 결과: ", product);
     },
   },
   actions: {
@@ -127,7 +128,19 @@ const houseProductStore = {
       );
     },
     detailProduct: ({ commit }, product) => {
-      commit("SET_DETAIL_PRODUCT", product);
+      //commit("SET_DETAIL_PRODUCT", product);
+      console.log("# 상세조회할 매물번호 - ", product.houseProductId);
+
+      productDetail(
+        product,
+        ({ data }) => {
+          console.log("# 매물 상세조회 data 가져오기 성공");
+          commit("SET_DETAIL_PRODUCT", data);
+        },
+        (error) => {
+          console.log("# 매물 상세조회 data 가져오기 실패 ", error);
+        }
+      );
     },
   },
 };

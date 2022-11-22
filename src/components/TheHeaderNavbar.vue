@@ -27,19 +27,30 @@
 
     <span class="ml-2 mr-10">|</span>
 
-    <v-btn @click="moveMyPage()">
-      <v-badge top bordered color="red" offset-x="10" offset-y="10" dot>
-        <v-avatar color="purple" size="27px">
-          <span class="white--text text-h7">USR</span>
-        </v-avatar>
-      </v-badge>
-      <span class="pl-1">김싸피 사용자</span>
-    </v-btn>
-
-    <div>
+    <!-- after login -->
+    <div v-if="!userInfo">
+      <v-btn @click="moveMyPage()">
+        <v-badge top bordered color="red" offset-x="10" offset-y="10" dot>
+          <v-avatar color="purple" size="27px">
+            <span class="white--text text-h7">USR</span>
+          </v-avatar>
+        </v-badge>
+        <!-- <span class="pl-1">김싸피 사용자</span> -->
+        <!-- <span class="pl-1">{{ userInfo.userId }}</span> -->
+      </v-btn>
+      <v-btn @click="logoutExcutor()">로그아웃</v-btn>
+    </div>
+    <!-- before login -->
+    <div v-else>
       <v-dialog v-model="loginDialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn class="ml-2 white--text" color="#3876f2" dark v-bind="attrs" v-on="on">
+          <v-btn
+            class="ml-2 white--text"
+            color="#3876f2"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
             로그인
           </v-btn>
         </template>
@@ -48,9 +59,13 @@
 
       <v-dialog v-model="signUpDialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn class="ml-2 error" dark v-bind="attrs" v-on="on"> 회원가입 </v-btn>
+          <v-btn class="ml-2 error" dark v-bind="attrs" v-on="on">
+            회원가입
+          </v-btn>
         </template>
-        <sign-up-dialog v-on:close-signup-dialog="closeSignUpDialog"></sign-up-dialog>
+        <sign-up-dialog
+          v-on:close-signup-dialog="closeSignUpDialog"
+        ></sign-up-dialog>
       </v-dialog>
     </div>
   </v-container>
@@ -59,6 +74,9 @@
 <script>
 import LoginDialog from "@/components/login/LoginDialog.vue";
 import SignUpDialog from "@/components/signUp/SignUpDialog.vue";
+import { mapActions, mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "TheHeaderNavbar",
@@ -72,8 +90,11 @@ export default {
     LoginDialog,
     SignUpDialog,
   },
-  computed: {},
+  computed: {
+    ...mapState(memberStore, ["userInfo", "isLogin", "userInfo"]),
+  },
   methods: {
+    ...mapActions(memberStore, ["userLogout"]),
     closeLoginDialog() {
       this.loginDialog = false;
     },
@@ -82,6 +103,9 @@ export default {
     },
     moveMyPage() {
       this.$router.push({ name: "MyPage" });
+    },
+    logoutExcutor() {
+      this.userLogout(this.userInfo.userId);
     },
   },
 };
