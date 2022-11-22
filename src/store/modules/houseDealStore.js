@@ -50,7 +50,7 @@ const houseDealStore = {
     },
     SET_HOUSE_LIST(state, houses) {
       state.houses = houses;
-      //console.log("# 아파트 거래내역 ", houses);
+      console.log("# 아파트 거래내역 ", houses);
     },
     SET_DETAIL_HOUSE(state, house) {
       state.house = house;
