@@ -118,7 +118,14 @@ const houseDealStore = {
         params,
         ({ data }) => {
           console.log("# 거래내역 가져오기 성공");
-          commit("SET_HOUSE_LIST", data);
+          const set = {};
+          data.forEach((apt) => {
+            if(!set[apt.apartName]){set[apt.apartName] = [];}
+            set[apt.apartName].push(apt);
+          })
+          console.log(data);
+          console.log(set);
+          commit("SET_HOUSE_LIST", set);
         },
         (error) => {
           console.log("# actions - houseDealList 에러: " + error);

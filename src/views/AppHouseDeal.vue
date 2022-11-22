@@ -1,19 +1,8 @@
 <template>
   <div id="house-deal-main">
     <house-deal-header></house-deal-header>
-    <house-deal-list></house-deal-list>
     <div id="house-deal-result">
-      <!-- <v-expansion-panels>
-        <v-expansion-panel v-for="(item, i) in 5" :key="i">
-          <v-expansion-panel-header> Item </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels> -->
+      <house-deal-list></house-deal-list>
     </div>
     <kakao-map></kakao-map>
   </div>
@@ -32,17 +21,6 @@ export default {
     KakaoMap,
   },
 };
-// export default {
-//   components: { KakaoMap, HouseDealHeader, HouseDealList },
-//   name: "AppHouseDeal",
-//   props: {},
-//   comments: {
-//     KakaoMap,
-//   },
-//   data() {
-//     return {};
-//   },
-// };
 </script>
 
 <style>
@@ -59,5 +37,6 @@ export default {
   background-color: white;
   padding: 20px;
   z-index: 4;
+  overflow: scroll;
 }
 </style>
