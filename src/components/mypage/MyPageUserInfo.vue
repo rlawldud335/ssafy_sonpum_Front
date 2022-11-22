@@ -3,6 +3,14 @@
     <div class="myhouse-product-title">
       <span>회원정보</span>
       <div>
+        <p>ID {{ userInfo.userId }}</p>
+        <p>이름 {{ userInfo.userName }}</p>
+        <p>이메일 {{ userInfo.email }}</p>
+        <p>가입날짜 {{ userInfo.joindate }}</p>
+        <p>핸드폰 번호 {{ userInfo.phoneNumber }}</p>
+        <!-- <p v-if="userInfo.role.equals('CORP')">신고 횟수 {{ userInfo.reportCount }}</p> -->
+      </div>
+      <div>
         <v-btn class="primary mx-3">수정하기</v-btn>
         <v-btn class="error">탈퇴하기</v-btn>
       </div>
@@ -13,7 +21,22 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
+
+export default {
+  name: "MyPageUserInfo",
+  components: {
+    
+  },
+  data() {
+    return{};
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
+};
 </script>
 
 <style>

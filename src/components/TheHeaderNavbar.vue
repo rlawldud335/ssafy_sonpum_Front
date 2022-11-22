@@ -28,7 +28,8 @@
     <span class="ml-2 mr-10">|</span>
 
     <!-- after login -->
-    <div v-if="!userInfo">
+    <!-- <div v-if="!userInfo"> -->
+    <div>
       <v-btn @click="moveMyPage()">
         <v-badge top bordered color="red" offset-x="10" offset-y="10" dot>
           <v-avatar color="purple" size="27px">
@@ -41,7 +42,8 @@
       <v-btn @click="logoutExcutor()">로그아웃</v-btn>
     </div>
     <!-- before login -->
-    <div v-else>
+    <!-- <div v-else> -->
+    <div>
       <v-dialog v-model="loginDialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
