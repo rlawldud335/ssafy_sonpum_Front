@@ -21,9 +21,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
+const houseProductStore = "houseProductStore";
+
 export default {
+  name: "HouseProductItem",
+  props: {
+    product: Object,
+  },
   methods: {
+    ...mapActions(houseProductStore, ["detailProduct"]),
     moveDetailPage() {
+      this.detailProduct(this.product);
       this.$router.push({ name: "houseProductDetail" });
     },
   },

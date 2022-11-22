@@ -13,7 +13,8 @@ import MyPageUserInfo from "@/components/mypage/MyPageUserInfo";
 import MyHouseProduct from "@/components/mypage/MyHouseProduct";
 import MyHouseProductReview from "@/components/mypage/MyHouseProductReview";
 import MyBookMark from "@/components/mypage/MyBookMark";
-import AppHouseProductDetail from "@/views/AppHouseProductDetail";
+//import AppHouseProductDetail from "@/views/AppHouseProductDetail";
+import HouseProductDetail from "@/components/houseProduct/HouseProductDetail";
 
 Vue.use(VueRouter);
 
@@ -34,9 +35,12 @@ const routes = [
     component: AppHouseProduct,
   },
   {
-    path: "/houseProductDetail/:productId",
+    // path: "/houseProductDetail/:productId",
+    // name: "houseProductDetail",
+    // component: AppHouseProductDetail,
+    path: "/houseProductDetail",
     name: "houseProductDetail",
-    component: AppHouseProductDetail,
+    component: HouseProductDetail,
   },
   {
     path: "/boardReport",

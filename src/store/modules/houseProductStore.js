@@ -25,7 +25,7 @@ const houseProductStore = {
     },
     CLEAR_PRODUCT_LIST(state) {
       state.products = [];
-      state.product = null; 
+      state.product = null;
     },
     CLEAR_SEARCH_KEY(state) {
       state.searchKey = null;
@@ -58,6 +58,9 @@ const houseProductStore = {
     },
     SET_SEARCH_WORD(state, word) {
       state.searchWord = word;
+    },
+    SET_DETAIL_PRODUCT(state, product) {
+      state.product = product;
     },
   },
   actions: {
@@ -122,6 +125,9 @@ const houseProductStore = {
           console.log("# 매물 리스트 가져오기 실패" + error);
         }
       );
+    },
+    detailProduct: ({ commit }, product) => {
+      commit("SET_DETAIL_PRODUCT", product);
     },
   },
 };
