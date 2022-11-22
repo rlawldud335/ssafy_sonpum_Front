@@ -120,6 +120,7 @@ const houseProductStore = {
         params,
         ({ data }) => {
           console.log("# 매물 리스트 가져오기 성공");
+          console.log(data);
           commit("SET_PRODUCT_LIST", data);
         },
         (error) => {

@@ -66,7 +66,7 @@ export default {
   },
   created() {
     this.CLEAR_SIDO_LIST();
-    this.CLEAR_PRODUCT_LIST();
+    // this.CLEAR_PRODUCT_LIST();
     this.getSido();
   },
   components: {
