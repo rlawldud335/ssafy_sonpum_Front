@@ -10,12 +10,19 @@
         style="border-radius: 20px 20px 0px 0px"
       ></v-img>
       <div class="myhouse-product-item-title">
-        <div class="product-title-name">ProductName</div>
-        <v-icon color="blue darken-2" class="mr-3">
-          mdi-bookmark-outline
+        <div class="product-title-name">{{ product.addressId }}</div>
+
+        <v-icon
+          color="blue darken-2"
+          class="mr-3"
+          @click="bookmark = !bookmark"
+        >
+          {{ bookmark ? "mdi-bookmark" : "mdi-bookmark-outline" }}
         </v-icon>
       </div>
-      <div class="product-price">거래유형 | 가격</div>
+      <div class="product-price">
+        {{ product.dealType }} | {{ product.dealAmount }}
+      </div>
     </div>
   </v-hover>
 </template>
@@ -29,6 +36,11 @@ export default {
   name: "HouseProductItem",
   props: {
     product: Object,
+  },
+  data() {
+    return {
+      bookmark: false,
+    };
   },
   methods: {
     ...mapActions(houseProductStore, ["detailProduct"]),
@@ -45,6 +57,7 @@ export default {
   width: 200px;
   margin: 10px;
   border-radius: 20px;
+  height: fit-content;
   background-color: white;
   box-shadow: 0 5px 18px -7px rgb(138, 138, 138);
 }

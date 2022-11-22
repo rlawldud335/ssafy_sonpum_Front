@@ -1,10 +1,14 @@
 <template>
-    <v-expansion-panels v-if="products && products.length != 0">
-        <house-product-item v-for="(product, index) in products" :key="index" :product="product" />
-    </v-expansion-panels>
-    <v-expansion-panels v-else>
-        <v-col>거래내역이 없습니다.</v-col>
-    </v-expansion-panels>
+  <div class="house-deal-content" v-if="products && products.length != 0">
+    <house-product-item
+      v-for="(product, index) in products"
+      :key="index"
+      :product="product"
+    />
+  </div>
+  <div v-else>
+    <v-col>거래내역이 없습니다.</v-col>
+  </div>
 </template>
 
 <script>
@@ -14,15 +18,23 @@ import { mapState } from "vuex";
 const houseProductStore = "houseProductStore";
 
 export default {
-    name: "HouseProductList",
-    components: {
-        HouseProductItem,
-    },
-    data() {
-        return {};
-    },
-    computed: {
-        ...mapState(houseProductStore, ["products"]),
-    },
+  name: "HouseProductList",
+  components: {
+    HouseProductItem,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState(houseProductStore, ["products"]),
+  },
 };
 </script>
+
+<style>
+.house-deal-content {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+</style>

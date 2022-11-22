@@ -215,6 +215,7 @@ export default {
     selectFilter(select) {
       if (select == this.selected.key) {
         this.selected.key = "";
+        this.selected.word = "";
         this.CLEAR_SEARCH_KEY(this.selected.key);
         this.CLEAR_SEARCH_WORD(this.selected.word);
       } else {
@@ -230,6 +231,9 @@ export default {
         this.selected.word = this.filterData.aptName;
         this.SET_SEARCH_KEY(this.selected.key);
         this.SET_SEARCH_WORD(this.selected.word);
+      } else {
+        this.selected.key = "";
+        this.selected.word = "";
       }
     },
     closedShow() {

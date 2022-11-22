@@ -3,9 +3,9 @@ import { sidoList, gugunList, dongList, houseDealList } from "@/api/house.js";
 const houseDealStore = {
   namespaced: true,
   state: {
-    sidos: [{ value: null, text: "시를 선택하세요" }],
-    guguns: [{ value: null, text: "구/군을 선택하세요" }],
-    dongs: [{ value: null, text: "동을 선택하세요" }],
+    sidos: [{ value: null, text: "시도 선택" }],
+    guguns: [{ value: null, text: "구군 선택" }],
+    dongs: [{ value: null, text: "동 선택" }],
     houses: [],
     house: null,
     searchKey: null,
@@ -14,13 +14,13 @@ const houseDealStore = {
   getters: {},
   mutations: {
     CLEAR_SIDO_LIST(state) {
-      state.sidos = [{ value: null, text: "시를 선택하세요" }];
+      state.sidos = [{ value: null, text: "시도 선택" }];
     },
     CLEAR_GUGUN_LIST(state) {
-      state.guguns = [{ value: null, text: "구/군을 선택하세요" }];
+      state.guguns = [{ value: null, text: "구군 선택" }];
     },
     CLEAR_DONG_LIST(state) {
-      state.dongs = [{ value: null, text: "동을 선택하세요" }];
+      state.dongs = [{ value: null, text: "동 선택" }];
     },
     CLEAR_APT_LIST(state) {
       state.houses = [];
@@ -120,9 +120,11 @@ const houseDealStore = {
           console.log("# 거래내역 가져오기 성공");
           const set = {};
           data.forEach((apt) => {
-            if(!set[apt.apartName]){set[apt.apartName] = [];}
+            if (!set[apt.apartName]) {
+              set[apt.apartName] = [];
+            }
             set[apt.apartName].push(apt);
-          })
+          });
           console.log(data);
           console.log(set);
           commit("SET_HOUSE_LIST", set);

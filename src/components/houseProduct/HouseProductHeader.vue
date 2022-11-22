@@ -55,18 +55,30 @@ export default {
     };
   },
   computed: {
-    ...mapState(houseProductStore, ["sidos", "guguns", "dongs", "products", "searchKey", "searchWord",]),
+    ...mapState(houseProductStore, [
+      "sidos",
+      "guguns",
+      "dongs",
+      "products",
+      "searchKey",
+      "searchWord",
+    ]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
-    this.CLEAR_PRODUCT_LIST();
+    // this.CLEAR_PRODUCT_LIST();
     this.getSido();
   },
   components: {
     HouseProductHeaderFilters,
   },
   methods: {
-    ...mapActions(houseProductStore, ["getSido", "getGugun", "getDong", "getProductList"]),
+    ...mapActions(houseProductStore, [
+      "getSido",
+      "getGugun",
+      "getDong",
+      "getProductList",
+    ]),
     ...mapMutations(houseProductStore, [
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
