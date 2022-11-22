@@ -25,7 +25,7 @@ const houseProductStore = {
     },
     CLEAR_PRODUCT_LIST(state) {
       state.products = [];
-      state.product = null;
+      state.product = null; 
     },
     CLEAR_SEARCH_KEY(state) {
       state.searchKey = null;
