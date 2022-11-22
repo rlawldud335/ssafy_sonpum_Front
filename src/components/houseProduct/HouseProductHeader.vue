@@ -32,12 +32,13 @@
       ></v-select>
     </div>
     <house-product-header-filters></house-product-header-filters>
-    <v-btn class="error" v-on:click="getAptDealList">검색</v-btn>
+    <v-btn class="error" v-on:click="productList">검색</v-btn>
   </div>
 </template>
 
 <script>
-import HouseProductHeaderFilters from "./HouseProductHeaderFilters.vue";
+//import HouseProductHeaderFilters from "./HouseProductHeaderFilters.vue";
+import HouseProductHeaderFilters from "@/components/houseProduct/HouseProductHeaderFilters.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
 
 const houseProductStore = "houseProductStore";
@@ -49,24 +50,28 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
+      key: null,
+      word: null,
     };
   },
   computed: {
-    ...mapState(houseProductStore, ["sidos", "guguns", "dongs"]),
+    ...mapState(houseProductStore, ["sidos", "guguns", "dongs", "products", "searchKey", "searchWord",]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
+    this.CLEAR_PRODUCT_LIST();
     this.getSido();
   },
   components: {
     HouseProductHeaderFilters,
   },
   methods: {
-    ...mapActions(houseProductStore, ["getSido", "getGugun", "getDong"]),
+    ...mapActions(houseProductStore, ["getSido", "getGugun", "getDong", "getProductList"]),
     ...mapMutations(houseProductStore, [
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
       "CLEAR_DONG_LIST",
+      "CLEAR_PRODUCT_LIST",
     ]),
     gugunList() {
       console.log("# 얻어온 sidoCode: " + this.sidoCode);
@@ -80,9 +85,16 @@ export default {
       this.dongCode = null;
       if (this.gugunCode) this.getDong(this.gugunCode);
     },
-    houseList() {
-      console.log("# 얻어온 dongCode: " + this.dongCode);
-      if (this.dongCode) this.getHouseList(this.dongCode);
+    productList() {
+      console.log("# Header - 검색조건 ", this.searchKey, this.searchWord);
+      //if (this.dongCode) this.getProductList(this.dongCode);
+      if (this.dongCode) {
+        this.getProductList({
+          dongCode: this.dongCode,
+          key: this.searchKey,
+          word: this.searchWord,
+        });
+      }
     },
   },
 };

@@ -1,0 +1,86 @@
+<template>
+  <v-container class="house-product-detail-main col-lg-8">
+    <div class="detail-header">
+      <v-carousel
+        v-if="product"
+        v-model="model"
+        height="400px"
+        style="width: 40%"
+      >
+        <v-carousel-item v-for="(color, i) in colors" :key="color">
+          <v-sheet :color="color" height="100%" tile>
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="text-h2">Slide {{ i + 1 }}</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+
+      <div class="detail-content">
+        <p>매물 정보: {{ product.houseProductId }}</p>
+        <p>판매자: {{ product.userId }}</p>
+        <p>주소: {{ product.addressId }}</p>
+        <p>건물이름: {{ product.buildYear }}</p>
+        <p>건물이름: {{ product.addressId }}</p>
+        <p>층: {{ product.floor }}</p>
+        <p>면적: {{ product.area }}</p>
+        <p>거래유형: {{ product.dealType }}</p>
+        <p>
+          가격:
+          {{
+            (parseInt(product.dealAmount.replace(",", "")) * 10000) | price
+          }}원
+        </p>
+        <p>판매여부: {{ product.stateFlag }}</p>
+      </div>
+    </div>
+
+    <div>매물 설명: {{ product.content }}</div>
+
+    <div>매물 부가 조회</div>
+
+    <div>전세 안정성 검사</div>
+
+    <div style="display: flex; justify-content: space-around">
+      <v-btn color="primary">매물 삭제하기</v-btn>
+      <v-btn color="primary">매물 수정하기</v-btn>
+      <v-btn color="error">매물 신고하기</v-btn>
+    </div>
+  </v-container>
+</template>
+
+<script>
+import { mapState } from "vuex";
+
+const houseProductStore = "houseProductStore";
+
+export default {
+  name: "HouseProductStore",
+  computed: {
+    ...mapState(houseProductStore, ["product"]),
+  },
+  filters: {
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
+  data() {
+    return {
+      model: 0,
+      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
+    };
+  },
+};
+</script>
+
+<style>
+.house-product-detail-main {
+  background-color: white;
+}
+
+.detail-header {
+  display: flex;
+  padding: 10px;
+}
+</style>

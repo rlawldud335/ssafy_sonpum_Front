@@ -127,34 +127,33 @@
         </div>
       </div>
     </div>
-
     <div class="filter">
       <v-btn
         elevation="2"
         class="filter-btn"
         @click="
           closedShow();
-          showDealDate = true;
+          showDealType = true;
         "
         :style="{
-          'background-color': selected.key == 'dealDate' ? '#886fbf' : '',
-          color: selected.key == 'dealDate' ? 'white' : 'black',
+          'background-color': selected.key == 'dealType' ? '#886fbf' : '',
+          color: selected.key == 'dealType' ? 'white' : 'black',
         }"
-        >거래기간</v-btn
+        >거래유형</v-btn
       >
-      <div v-show="showDealDate" class="filter-content">
+      <div v-show="showDealType" class="filter-content">
         <div class="filter-content-top">
-          <p class="filter-content-title">거래기간</p>
-          <v-icon @click="showDealDate = !showDealDate">mdi-close</v-icon>
+          <p class="filter-content-title">거래유형</p>
+          <v-icon @click="showDealType = !showDealType">mdi-close</v-icon>
         </div>
         <div>
-          <v-date-picker
-            v-model="filterData.dealDate"
-            type="month"
-          ></v-date-picker>
+          <v-text-field
+            v-model="filterData.dealType"
+            suffix="월세/전세/매매 중 택 1"
+          ></v-text-field>
         </div>
         <div class="filter-select-btn">
-          <v-btn color="primary" @click="selectFilter('dealDate')"
+          <v-btn color="primary" @click="selectFilter('dealType')"
             >필터적용</v-btn
           >
         </div>
@@ -163,19 +162,19 @@
 
     <div class="filter-apart-name">
       <v-text-field
-        v-model="filterData.aptName"
-        label="아파트 이름"
+        v-model="filterData.userId"
+        label="판매자 ID"
         solo
         dense
         hide-details
-        @keyup="onAptName"
+        @keyup="onUserId"
       ></v-text-field>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 const houseProductStore = "houseProductStore";
 
@@ -187,14 +186,14 @@ export default {
       showArea: false,
       showFloor: false,
       showBuildYear: false,
-      showDealDate: false,
+      showDealType: false,
       filterData: {
         amount: 0,
         area: 0,
         floor: 0,
         buildYear: "2022",
-        dealDate: "2020-03",
-        aptName: "",
+        dealType: "MONTH",
+        userId: "",
       },
       selected: {
         key: "",
@@ -202,23 +201,35 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(houseProductStore, ["searchKey", "searchWord"]),
+  },
   methods: {
-    ...mapMutations(houseProductStore, ["CLEAR_FILTER", "SET_FILTER"]),
+    ...mapMutations(houseProductStore, [
+      "CLEAR_SEARCH_KEY",
+      "CLEAR_SEARCH_WORD",
+      "SET_SEARCH_KEY",
+      "SET_SEARCH_WORD",
+    ]),
     selectFilter(select) {
       if (select == this.selected.key) {
         this.selected.key = "";
         this.selected.word = "";
-        this.CLEAR_FILTER();
+        this.CLEAR_SEARCH_KEY(this.selected.key);
+        this.CLEAR_SEARCH_WORD(this.selected.word);
       } else {
         this.selected.key = select;
         this.selected.word = this.filterData[select];
-        this.SET_FILTER(this.selected);
+        this.SET_SEARCH_KEY(this.selected.key);
+        this.SET_SEARCH_WORD(this.selected.word);
       }
     },
-    onAptName() {
-      if (this.filterData.aptName != "") {
-        this.selected.key = "aptName";
-        this.selected.word = this.filterData.aptName;
+    onUserId() {
+      if (this.filterData.userId != "") {
+        this.selected.key = "userId";
+        this.selected.word = this.filterData.userId;
+        this.SET_SEARCH_KEY(this.selected.key);
+        this.SET_SEARCH_WORD(this.selected.word);
       }
     },
     closedShow() {
@@ -226,7 +237,7 @@ export default {
       this.showArea = false;
       this.showFloor = false;
       this.showBuildYear = false;
-      this.showDealDate = false;
+      this.showDealType = false;
     },
   },
 };
