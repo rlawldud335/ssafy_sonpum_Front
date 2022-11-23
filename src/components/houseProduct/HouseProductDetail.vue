@@ -34,6 +34,8 @@
         <p>층: {{ product.floor }}</p>
         <p>면적: {{ product.area }}</p>
         <p>거래유형: {{ product.dealType }}</p>
+        <!-- <p>lat: {{ product.lat }}</p>
+        <p>lng: {{ product.lng }}</p> -->
         <p>
           가격:
           {{

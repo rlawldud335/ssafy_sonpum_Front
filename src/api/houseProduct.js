@@ -20,7 +20,7 @@ function userProductList(userid, success, fail) {
 }
 function reviewHouseProductList(writerUserid, success, fail) {
   console.log("## userId: ", writerUserid);
-  api.get(`/mypage//review/${writerUserid}`).then(success).catch(fail);
+  api.get(`/mypage/review/${writerUserid}`).then(success).catch(fail);
 }
 
 export {

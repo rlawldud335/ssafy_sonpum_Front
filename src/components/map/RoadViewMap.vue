@@ -1,35 +1,3 @@
-<!-- <template>
-  <div id="map"></div>
-</template>
-
-<script>
-// const KAKAO_API_KEY = process.env.VUE_APP_KAKAO_API_KEY;
-
-export default {
-  name: "RoadViewMap",
-  data() {
-    return {};
-  },
-  created() {
-    console.log("# RaodViewMap 동작");
-    //this.initMap();
-  },
-  mounted() {},
-  methods: {},
-};
-</script>
-
-<style>
-.map {
-  width: 100%;
-  height: 500px;
-}
-#loadview {
-  height: 600px;
-  background-color: #ffffff;
-}
-</style> -->
-
 <template>
   <div>
     <div id="map"></div>
@@ -37,10 +5,17 @@ export default {
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+const houseProductStore = "houseProductStore";
+
 export default {
   name: "KakaoMap",
   data() {
     return {};
+  },
+  computed: {
+    ...mapState(houseProductStore, ["product"]),
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -59,9 +34,21 @@ export default {
       const roadviewContainer = document.getElementById("map");
       var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
       var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
-      var position = new kakao.maps.LatLng(33.450701, 126.570667);
 
-      roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+      console.log(
+        "# 로드뷰 lat, lng 확인: ",
+        this.product.lat,
+        this.product.lng
+      );
+      //var position = new kakao.maps.LatLng(33.450701, 126.570667);
+      var position = new kakao.maps.LatLng(this.product.lat, this.product.lng);
+      //37.5746540320628 126.968575235313. 37.5746, 126.9685
+      //var position = new kakao.maps.LatLng(37.5739, 126.9679);
+
+      // roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+      //   roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+      // });
+      roadviewClient.getNearestPanoId(position, 70, function (panoId) {
         roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
       });
     },
