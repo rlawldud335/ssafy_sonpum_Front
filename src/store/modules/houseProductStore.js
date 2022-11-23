@@ -82,7 +82,7 @@ const houseProductStore = {
     },
     SET_DETAIL_PRODUCT(state, product) {
       state.product = product;
-      console.log("# 매물 상세조회 결과: ", product);
+      console.log("# SET_DETAIL_PRODUCT: ", product);
     },
   },
   actions: {
