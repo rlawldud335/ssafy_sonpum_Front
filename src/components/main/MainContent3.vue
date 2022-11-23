@@ -39,10 +39,7 @@
         "
       >
         <div class="text-h5 font-weight-bold primary--text">1. 매물 찾기</div>
-        <div class="text-body-1 py-4">
-          It should work with colors defined in your theme as well e.g.
-          primary--text and similar.
-        </div>
+        <div class="text-body-1 py-4">원하는 조건의 아파트를 찾아보세요!</div>
         <v-btn color="#3876f2" class="white--text"> 매물 보러 가기</v-btn>
       </div>
     </div>
@@ -71,8 +68,7 @@
       >
         <div class="text-h5 font-weight-bold primary--text">2. 시세 찾기</div>
         <div class="text-body-1 py-4">
-          It should work with colors defined in your theme as well e.g.
-          primary--text and similar.
+          원하는 지역을 선택하여 최근 아파트 거래내역을 살펴보세요!
         </div>
         <v-btn color="#3876f2" class="white--text"> 시세 보러 가기</v-btn>
       </div>
