@@ -3,9 +3,17 @@
     <v-row style="height: 100%">
       <v-col cols="3">
         <div class="mypage-profile">
-          <div class="mypage-profile-image"></div>
-          <div class="mypage-user-name">userId</div>
-          <div class="mypage-user-role">관리자</div>
+          <div class="mypage-profile-image">
+            <img
+              class="mypage-profile-image"
+              src="@/assets/img/rabbit.gif"
+              alt=""
+            />
+          </div>
+          <!-- <div class="mypage-user-name">userId</div>
+          <div class="mypage-user-role">관리자</div> -->
+          <div class="mypage-user-name">{{ userInfo.userId }}</div>
+          <div class="mypage-user-role">{{ userInfo.role | role }}</div>
         </div>
 
         <v-divider></v-divider>
@@ -38,7 +46,33 @@
 
 <script>
 // import MyPageUserInfo from "@/components/mypage/MyPageUserInfo.vue";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
+  name: "AppMyPage",
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
+  filters: {
+    role(value) {
+      if (value == "ADMIN") {
+        value = "관리자";
+        return value;
+      } else if (value == "CORP") {
+        value = "기업 회원";
+        return value;
+      } else {
+        value = "회원";
+        return value;
+      }
+    },
+  },
   // components: { MyPageUserInfo },
 };
 </script>
@@ -63,7 +97,7 @@ export default {
 .mypage-profile-image {
   width: 100px;
   height: 100px;
-  background-color: rgb(102, 102, 213);
+  /* background-color: rgb(102, 102, 213); */
   border-radius: 50%;
   display: flex;
   justify-content: center;

@@ -1,6 +1,12 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout } from "@/api/user";
+import {
+  login,
+  findById,
+  tokenRegeneration,
+  logout,
+  withdrawal,
+} from "@/api/user";
 
 const memberStore = {
   namespaced: true,
@@ -21,6 +27,7 @@ const memberStore = {
   mutations: {
     SET_IS_LOGIN: (state, isLogin) => {
       state.isLogin = isLogin;
+      console.log("# SET_IS_LOGIN: ", isLogin);
     },
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
@@ -31,6 +38,7 @@ const memberStore = {
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
+      console.log("# SET_USER_INFO: ", userInfo);
     },
   },
   actions: {
@@ -41,6 +49,14 @@ const memberStore = {
           if (data.message === "success") {
             let accessToken = data["access-token"];
             let refreshToken = data["refresh-token"];
+            console.log(
+              "# 로그인 > token 받아오기 성공 access-token: ",
+              accessToken
+            );
+            console.log(
+              "# 로그인 > token 받아오기 성공 refresh-token: ",
+              refreshToken
+            );
             // console.log("login success token created!!!! >> ", accessToken, refreshToken);
             commit("SET_IS_LOGIN", true);
             commit("SET_IS_LOGIN_ERROR", false);
@@ -48,6 +64,7 @@ const memberStore = {
             sessionStorage.setItem("access-token", accessToken);
             sessionStorage.setItem("refresh-token", refreshToken);
           } else {
+            console.log("# 로그인 > token 받아오기 실패");
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
@@ -61,8 +78,9 @@ const memberStore = {
     async getUserInfo({ commit, dispatch }, token) {
       let decodeToken = jwtDecode(token);
       // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
+
       await findById(
-        decodeToken.userid,
+        decodeToken.userId,
         ({ data }) => {
           if (data.message === "success") {
             commit("SET_USER_INFO", data.userInfo);
@@ -72,14 +90,20 @@ const memberStore = {
           }
         },
         async (error) => {
-          console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
+          console.log(
+            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
+            error.response.status
+          );
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
         }
       );
     },
     async tokenRegeneration({ commit, state }) {
-      console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
+      console.log(
+        "토큰 재발급 >> 기존 토큰 정보 : {}",
+        sessionStorage.getItem("access-token")
+      );
       await tokenRegeneration(
         JSON.stringify(state.userInfo),
         ({ data }) => {
@@ -96,7 +120,7 @@ const memberStore = {
             console.log("갱신 실패");
             // 다시 로그인 전 DB에 저장된 RefreshToken 제거.
             await logout(
-              state.userInfo.userid,
+              state.userInfo.userId,
               ({ data }) => {
                 if (data.message === "success") {
                   console.log("리프레시 토큰 제거 성공");
@@ -119,14 +143,20 @@ const memberStore = {
         }
       );
     },
-    async userLogout({ commit }, userid) {
+    async userLogout({ commit }, userId) {
+      console.log("# 로그아웃 userId: ", userId);
       await logout(
-        userid,
+        userId,
         ({ data }) => {
           if (data.message === "success") {
             commit("SET_IS_LOGIN", false);
             commit("SET_USER_INFO", null);
             commit("SET_IS_VALID_TOKEN", false);
+            console.log(
+              "# 로그아웃 후 isLogin, userInfo 확인 ",
+              this.isLogin,
+              this.userInfo
+            );
           } else {
             console.log("유저 정보 없음!!!!");
           }
@@ -135,6 +165,24 @@ const memberStore = {
           console.log(error);
         }
       );
+    },
+    async userWithdrawal({ commit }, userId) {
+      console.log("# 회원탈퇴 userid: ", userId);
+      await withdrawal(userId, ({ data }) => {
+        if (data.message == "success") {
+          console.log("# 회원탈퇴 성공");
+          commit("SET_IS_LOGIN", false);
+          commit("SET_USER_INFO", null);
+          commit("SET_IS_VALID_TOKEN", false);
+          console.log(
+            "# 회원탈퇴 후 isLogin, userInfo 확인 ",
+            this.isLogin,
+            this.userInfo
+          );
+        } else {
+          console.log("# 회원탈퇴 Fail-");
+        }
+      });
     },
   },
 };

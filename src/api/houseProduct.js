@@ -8,5 +8,24 @@ function houseProductList(params, success, fail) {
   console.log("## params: ", params);
   api.post(`/houseProduct/list`, params).then(success).catch(fail);
 }
+function productDetail(product, success, fail) {
+  console.log("## product: ", product);
+  api.get(`/houseProduct/${product.houseProductId}`).then(success).catch(fail);
+}
 
-export { houseProductList };
+/* 마이페이지 - 매물 관련 */
+function userProductList(userid, success, fail) {
+  console.log("## userId: ", userid);
+  api.get(`/mypage/product/${userid}`).then(success).catch(fail);
+}
+function reviewHouseProductList(writerUserid, success, fail) {
+  console.log("## userId: ", writerUserid);
+  api.get(`/mypage/review/${writerUserid}`).then(success).catch(fail);
+}
+
+export {
+  houseProductList,
+  productDetail,
+  userProductList,
+  reviewHouseProductList,
+};

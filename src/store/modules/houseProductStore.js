@@ -1,5 +1,10 @@
 import { sidoList, gugunList, dongList } from "@/api/house.js";
-import { houseProductList } from "@/api/houseProduct.js";
+import {
+  houseProductList,
+  productDetail,
+  userProductList,
+  reviewHouseProductList,
+} from "@/api/houseProduct.js";
 
 const houseProductStore = {
   namespaced: true,
@@ -9,10 +14,17 @@ const houseProductStore = {
     dongs: [{ value: null, text: "동 선택" }],
     products: [],
     product: null,
+    userProducts: [],         
+    userReviews: [],
     searchKey: null,
     searchWord: null,
   },
-  getters: {},
+  getters: {
+    // ! for. 마커
+    products(state) {
+      return state.product;
+    }
+  },
   mutations: {
     CLEAR_SIDO_LIST(state) {
       state.sidos = [{ value: null, text: "시도 선택" }];
@@ -26,6 +38,12 @@ const houseProductStore = {
     CLEAR_PRODUCT_LIST(state) {
       state.products = [];
       state.product = null;
+    },
+    CLEAR_USER_PRODUCT_LIST(state) {
+      state.userProducts = [];
+    },
+    CLEAR_USER_REVIEW_LIST(state) {
+      state.userReviews = [];
     },
     CLEAR_SEARCH_KEY(state) {
       state.searchKey = null;
@@ -53,6 +71,14 @@ const houseProductStore = {
       state.products = products;
       console.log("# 아파트 매물: ", products);
     },
+    SET_USER_PRODUCT_LIST(state, userProducts) {
+      state.userProducts = userProducts;
+      console.log("# USER가 등록한 매물: ", userProducts);
+    },
+    SET_USER_REVIEW_LIST(state, userReviews) {
+      state.userReviews = userReviews;
+      console.log("# USER가 등록한 리뷰: ", userReviews);
+    },
     SET_SEARCH_KEY(state, key) {
       state.searchKey = key;
     },
@@ -61,6 +87,7 @@ const houseProductStore = {
     },
     SET_DETAIL_PRODUCT(state, product) {
       state.product = product;
+      console.log("# SET_DETAIL_PRODUCT: ", product);
     },
   },
   actions: {
@@ -128,7 +155,47 @@ const houseProductStore = {
       );
     },
     detailProduct: ({ commit }, product) => {
-      commit("SET_DETAIL_PRODUCT", product);
+      //commit("SET_DETAIL_PRODUCT", product);
+      console.log("# 상세조회할 매물번호 - ", product.houseProductId);
+
+      productDetail(
+        product,
+        ({ data }) => {
+          console.log("# 매물 상세조회 data 가져오기 성공");
+          commit("SET_DETAIL_PRODUCT", data);
+        },
+        (error) => {
+          console.log("# 매물 상세조회 data 가져오기 실패 ", error);
+        }
+      );
+    },
+    getUserProduct: ({ commit }, userId) => {
+      console.log("# 매물 목록을 조회할 USER: ", userId);
+
+      userProductList(
+        userId,
+        ({ data }) => {
+          console.log("# USER가 등록한 매물 목록 가져오기 성공");
+          commit("SET_USER_PRODUCT_LIST", data);
+        },
+        (error) => {
+          console.log("# USER가 등록한 매물 목록 가져오기 Fail-", error);
+        }
+      );
+    },
+    getUserReview: ({ commit }, userId) => {
+      console.log("# 리뷰를 조회할 USER: ", userId);
+
+      reviewHouseProductList(
+        userId,
+        ({ data }) => {
+          console.log("# USER가 등록한 리뷰 목록 가져오기 성공");
+          commit("SET_USER_REVIEW_LIST", data);
+        },
+        (error) => {
+          console.log("# USER가 등록한 리뷰 가져오기 Fail-", error);
+        }
+      );
     },
   },
 };

@@ -10,7 +10,8 @@
         style="border-radius: 20px 20px 0px 0px"
       ></v-img>
       <div class="myhouse-product-item-title">
-        <div class="product-title-name">{{ product.addressId }}</div>
+        <!-- <div class="product-title-name">{{ product.addressId }}</div> -->
+        <div class="product-title-name">{{ product.apartName }}</div>
 
         <v-icon
           color="blue darken-2"
@@ -20,8 +21,12 @@
           {{ bookmark ? "mdi-bookmark" : "mdi-bookmark-outline" }}
         </v-icon>
       </div>
-      <div class="product-price">
+      <!-- <div class="product-price">
         {{ product.dealType }} | {{ product.dealAmount }}
+      </div> -->
+      <div class="product-price">
+        {{ product.dealType | dealType }} |
+        {{ product.dealAmount | dealAmount }}
       </div>
     </div>
   </v-hover>
@@ -47,6 +52,21 @@ export default {
     moveDetailPage() {
       this.detailProduct(this.product);
       this.$router.push({ name: "houseProductDetail" });
+    },
+  },
+  filters: {
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    dealType(value) {
+      if (value == "SALE") {
+        return "매매";
+      } else if (value == "YEAR") {
+        return "전세";
+      } else {
+        return "월세";
+      }
     },
   },
 };

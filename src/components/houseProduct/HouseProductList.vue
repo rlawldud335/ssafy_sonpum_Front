@@ -7,7 +7,7 @@
     />
   </div>
   <div v-else>
-    <v-col>거래내역이 없습니다.</v-col>
+    <v-col>해당 지역에 매물이 없습니다.</v-col>
   </div>
 </template>
 

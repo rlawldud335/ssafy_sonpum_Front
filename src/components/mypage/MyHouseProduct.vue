@@ -5,43 +5,83 @@
       <v-btn class="primary">매물 등록하기</v-btn>
     </div>
 
-    <div class="myhouse-product-contents">
+    <!-- <div class="myhouse-product-contents">
       <house-product-item></house-product-item>
       <house-product-item></house-product-item>
       <house-product-item></house-product-item>
       <house-product-item></house-product-item>
       <house-product-item></house-product-item>
       <house-product-item></house-product-item>
+    </div> -->
+    <div
+      class="myhouse-product-contents"
+      v-if="userProducts && userProducts.length != 0"
+    >
+      <user-house-product-item
+        v-for="(product, index) in userProducts"
+        :key="index"
+        :product="product"
+      ></user-house-product-item>
+    </div>
+    <div v-else>
+      <v-col>거래내역이 없습니다.</v-col>
     </div>
   </div>
 </template>
 
 <script>
-import HouseProductItem from "@/components/houseProduct/HouseProductItem.vue";
+//import HouseProductItem from "@/components/houseProduct/HouseProductItem.vue";
+import UserHouseProductItem from "../houseProduct/UserHouseProductItem.vue";
+import { mapActions, mapState } from "vuex";
+
+const houseProductStore = "houseProductStore";
+const memberStore = "memberStore";
 
 export default {
+  name: "MyHouseProduct",
   components: {
-    HouseProductItem,
+    UserHouseProductItem,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState(houseProductStore, ["userProducts"]),
+    ...mapState(memberStore, ["userInfo"]),
+  },
+  created() {
+    if (this.userInfo.userId) this.getUserProduct(this.userInfo.userId);
+  },
+  methods: {
+    ...mapActions(houseProductStore, ["getUserProduct"]),
   },
 };
 </script>
 
 <style>
-.myhouse-product-main {
-  padding: 20px;
+.myhouse-product-item {
+  width: 200px;
+  margin: 10px;
+  border-radius: 20px;
+  height: fit-content;
+  background-color: white;
+  box-shadow: 0 5px 18px -7px rgb(138, 138, 138);
 }
 
-.myhouse-product-title {
+.myhouse-product-item-title {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
-  font-size: 1.1rem;
-  font-weight: bold;
 }
 
-.myhouse-product-contents {
-  display: flex;
-  padding: 20px;
-  flex-wrap: wrap;
+.product-title-name {
+  font-size: 1rem;
+  padding: 10px;
+  padding-left: 20px;
+  font-weight: 500;
+}
+
+.product-price {
+  font-size: 0.9rem;
+  padding: 15px;
 }
 </style>

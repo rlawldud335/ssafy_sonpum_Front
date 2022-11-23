@@ -16,6 +16,11 @@
         </v-carousel-item>
       </v-carousel>
 
+      <!-- KakaoMap RoadView -->
+      <div>
+        <road-view-map></road-view-map>
+      </div>
+
       <div class="detail-content">
         <p>매물 번호: {{ product.houseProductId }}</p>
         <p>판매자 ID: {{ product.userId }}</p>
@@ -29,6 +34,8 @@
         <p>층: {{ product.floor }}</p>
         <p>면적: {{ product.area }}</p>
         <p>거래유형: {{ product.dealType }}</p>
+        <!-- <p>lat: {{ product.lat }}</p>
+        <p>lng: {{ product.lng }}</p> -->
         <p>
           가격:
           {{
@@ -36,7 +43,7 @@
           }}원
         </p>
         <!-- 0 이면 판매 안된 상태, 1 이면 판매완료 상태 -->
-        <p>판매여부: {{ product.stateFlag }}</p>
+        <p>판매여부: {{ product.stateFlag | stateFlag }}</p>
       </div>
     </div>
 
@@ -56,11 +63,15 @@
 
 <script>
 import { mapState } from "vuex";
+import RoadViewMap from "../map/RoadViewMap.vue";
 
 const houseProductStore = "houseProductStore";
 
 export default {
   name: "HouseProductStore",
+  components: {
+    RoadViewMap,
+  },
   computed: {
     ...mapState(houseProductStore, ["product"]),
   },
@@ -68,6 +79,13 @@ export default {
     price(value) {
       if (!value) return value;
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    stateFlag(value) {
+      if (value == 1) {
+        return "판매완료";
+      } else {
+        return "판매중";
+      }
     },
   },
   data() {

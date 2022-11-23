@@ -6,7 +6,11 @@
     >
       <div style="display: flex; justify-content: space-between">
         <p style="font-size: 1.2rem; font-weight: bold">손품 공지사항</p>
-        <v-btn dark color="#3876f2" @click="onAdd"> 글쓰기 </v-btn>
+        <!-- #HE# 관리자일때만 버튼 보이게 하고싶은데 안됨 ㅠㅠㅠ -->
+        <!-- <div v-if="userInfo.role == 'ADMIN'"> -->
+        <div>
+          <v-btn dark color="#3876f2" @click="onAdd"> 글쓰기 </v-btn>
+        </div>
       </div>
 
       <v-list two-line v-for="(listItem, index) in calData" :key="index">
@@ -17,7 +21,9 @@
               :style="{ opacity: hover ? '0.6' : '' }"
               style="width: 80%"
             >
-              <v-list-tile-title class="text--primary"> {{ listItem.subject }} </v-list-tile-title>
+              <v-list-tile-title class="text--primary">
+                {{ listItem.subject }}
+              </v-list-tile-title>
             </v-list-tile-content>
           </v-hover>
           <v-list-tile-action>
@@ -29,39 +35,76 @@
         <v-divider></v-divider>
       </v-list>
       <div style="display: flex; justify-content: center">
-        <v-text-field placeholder="검색어" class="shrink" clearable hide-details v-model="search">
+        <v-text-field
+          placeholder="검색어"
+          class="shrink"
+          clearable
+          hide-details
+          v-model="search"
+        >
         </v-text-field>
       </div>
 
       <br />
-      <v-pagination color="#3876f2" circle v-model="curPageNum" :length="numOfPages">
+      <v-pagination
+        color="#3876f2"
+        circle
+        v-model="curPageNum"
+        :length="numOfPages"
+      >
       </v-pagination>
     </v-flex>
 
-    <v-dialog v-model="addDialog" persistent max-width="500px" @keydown.esc="closeDialog">
+    <v-dialog
+      v-model="addDialog"
+      persistent
+      max-width="500px"
+      @keydown.esc="closeDialog"
+    >
       <base-modal>
         <div slot="title" class="headline">글쓰기</div>
         <v-container slot="content" grid-list-md>
           <v-layout wrap>
             <v-flex xs12>
-              <v-text-field label="Subject" v-model="newData.subject" required> </v-text-field>
+              <v-text-field label="Subject" v-model="newData.subject" required>
+              </v-text-field>
             </v-flex>
             <v-flex xs12>
-              <v-text-field label="Desc" v-model="newData.desc" @keydown.enter="submit" required>
+              <v-text-field
+                label="Desc"
+                v-model="newData.desc"
+                @keydown.enter="submit"
+                required
+              >
               </v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
-        <v-btn slot="negative-button" color="blue darken-1 white--text" flat @click="closeDialog">
+        <v-btn
+          slot="negative-button"
+          color="blue darken-1 white--text"
+          flat
+          @click="closeDialog"
+        >
           닫기
         </v-btn>
-        <v-btn slot="positive-button" color="blue darken-1 white--text" flat @click="submit">
+        <v-btn
+          slot="positive-button"
+          color="blue darken-1 white--text"
+          flat
+          @click="submit"
+        >
           저장
         </v-btn>
       </base-modal>
     </v-dialog>
 
-    <v-dialog v-model="viewDialog" persistent max-width="600px" @keydown.esc="closeDialog">
+    <v-dialog
+      v-model="viewDialog"
+      persistent
+      max-width="600px"
+      @keydown.esc="closeDialog"
+    >
       <base-modal>
         <div slot="title" class="headline">{{ selectedData.subject }}</div>
         <v-container slot="content" grid-list-md>
@@ -71,17 +114,34 @@
             </v-flex>
           </v-layout>
         </v-container>
-        <v-btn slot="negative-button" color="blue darken-1" flat @click="closeDialog"> 닫기 </v-btn>
+        <v-btn
+          slot="negative-button"
+          color="blue darken-1"
+          flat
+          @click="closeDialog"
+        >
+          닫기
+        </v-btn>
       </base-modal>
     </v-dialog>
 
-    <v-dialog v-model="editDialog" persistent max-width="500px" @keydown.esc="closeDialog">
+    <v-dialog
+      v-model="editDialog"
+      persistent
+      max-width="500px"
+      @keydown.esc="closeDialog"
+    >
       <base-modal>
         <div slot="title" class="headline">수정하기</div>
         <v-container slot="content" grid-list-md>
           <v-layout wrap>
             <v-flex xs12>
-              <v-text-field label="Subject" v-model="selectedData.subject" required> </v-text-field>
+              <v-text-field
+                label="Subject"
+                v-model="selectedData.subject"
+                required
+              >
+              </v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
@@ -94,10 +154,20 @@
             </v-flex>
           </v-layout>
         </v-container>
-        <v-btn slot="negative-button" color="blue darken-1 white--text" flat @click="closeDialog">
+        <v-btn
+          slot="negative-button"
+          color="blue darken-1 white--text"
+          flat
+          @click="closeDialog"
+        >
           닫기
         </v-btn>
-        <v-btn slot="positive-button" color="blue darken-1 white--text" flat @click="editData">
+        <v-btn
+          slot="positive-button"
+          color="blue darken-1 white--text"
+          flat
+          @click="editData"
+        >
           저장
         </v-btn>
       </base-modal>
@@ -112,10 +182,20 @@
     >
       <base-modal>
         <div slot="title" class="headline">삭제하시겠습니까?</div>
-        <v-btn slot="negative-button" color="blue darken-1 white--text" flat @click="closeDialog">
+        <v-btn
+          slot="negative-button"
+          color="blue darken-1 white--text"
+          flat
+          @click="closeDialog"
+        >
           취소
         </v-btn>
-        <v-btn slot="positive-button" color="blue darken-1 white--text" flat @click="removeData">
+        <v-btn
+          slot="positive-button"
+          color="blue darken-1 white--text"
+          flat
+          @click="removeData"
+        >
           삭제
         </v-btn>
       </base-modal>
@@ -124,52 +204,14 @@
 </template>
 
 <script>
-const testData = [
-  { id: 1, subject: "Malawi", desc: "Wels" },
-  { id: 2, subject: "Cuba", desc: "Sale" },
-  { id: 3, subject: "Somalia", desc: "Lahore" },
-  { id: 4, subject: "Togo", desc: "Termeno sulla strada del vino/Tramin an der Weinstrasse" },
-  { id: 5, subject: "Slovenia", desc: "Edam" },
-  { id: 6, subject: "Tonga", desc: "Vinci" },
-  { id: 7, subject: "Kenya", desc: "Te Awamutu" },
-  { id: 8, subject: "Japan", desc: "Ferrazzano" },
-  { id: 9, subject: "Finland", desc: "Nil-Saint-Vincent-Saint-Martin" },
-  { id: 10, subject: "Dominica", desc: "Paglieta" },
-  { id: 11, subject: "Solomon Islands", desc: "Vilvoorde" },
-  { id: 12, subject: "Monaco", desc: "Tonk" },
-  { id: 13, subject: "Cook Islands", desc: "Sint-Pieters-Kapelle" },
-  { id: 14, subject: "Gibraltar", desc: "Develi" },
-  { id: 15, subject: "Mauritania", desc: "Etobicoke" },
-  { id: 16, subject: "Sierra Leone", desc: "Norman Wells" },
-  { id: 17, subject: "Ghana", desc: "Charleroi" },
-  { id: 18, subject: "Saint Martin", desc: "Düsseldorf" },
-  { id: 19, subject: "Uganda", desc: "Dhuy" },
-  { id: 20, subject: "Serbia", desc: "Rampur" },
-  { id: 21, subject: "Bangladesh", desc: "Kempten" },
-  { id: 22, subject: "Bosnia and Herzegovina", desc: "Okigwe" },
-  { id: 23, subject: "Somalia", desc: "Valpelline" },
-  { id: 24, subject: "Libya", desc: "Beverlo" },
-  { id: 25, subject: "Israel", desc: "Coalhurst" },
-  { id: 26, subject: "Greece", desc: "Castel Ritaldi" },
-  { id: 27, subject: "United Kingdom (Great Britain)", desc: "Benestare" },
-  { id: 28, subject: "Singapore", desc: "Tsiigehtchic" },
-  { id: 29, subject: "Saint Pierre and Miquelon", desc: "Jhang" },
-  { id: 30, subject: "South Georgia and The South Sandwich Islands", desc: "Mobile" },
-  { id: 31, subject: "Yemen", desc: "Koningshooikt" },
-  { id: 32, subject: "Albania", desc: "Stirling" },
-  { id: 33, subject: "Laos", desc: "Beypazarı" },
-  { id: 34, subject: "Bouvet Island", desc: "Florida" },
-  { id: 35, subject: "Macao", desc: "Calmar" },
-  { id: 36, subject: "Austria", desc: "Invergordon" },
-  { id: 37, subject: "Palau", desc: "Balclutha" },
-  { id: 38, subject: "Denmark", desc: "Bozeman" },
-  { id: 39, subject: "Sierra Leone", desc: "Assiniboia" },
-  { id: 40, subject: "Austria", desc: "Champigny-sur-Marne" },
-  { id: 41, subject: "Finland", desc: "Calera de Tango" },
-  { id: 42, subject: "Lesotho", desc: "Ancarano" },
-];
 import BaseModal from "@/components/boardNotice/BaseModal.vue";
+import { mapActions, mapState } from "vuex";
+
+const memberStore = "memberStore";
+const boardStore = "boardStore";
+
 export default {
+  name: "BoardNotice",
   data() {
     return {
       addDialog: false,
@@ -196,14 +238,21 @@ export default {
     };
   },
   created() {
-    // this.axios.get('http://localhost:8080/server/listTest.json')
-    //   .then((response) => {
-    //     this.listData = response.data;
-    //     console.log(this.listData);
-    //   });
-    this.listData = testData;
+    //this.listData = testData;
+
+    // 공지사항 목록 가져오기
+    // if (this.getNoticeList(this.search)) {
+    //   this.listData = this.notices;
+    //   //console.log("##### listData ", this.listData);
+    //   console.log("#### userInfo 확인 ", this.userInfo);
+    // }
+    if (this.getNoticeList()) {
+      this.listData = this.notices;
+    }
   },
   computed: {
+    ...mapState(boardStore, ["notices"]),
+    ...mapState(memberStore, ["userInfo"]),
     startOffset() {
       return (this.curPageNum - 1) * this.dataPerPage;
     },
@@ -220,6 +269,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(boardStore, ["getNoticeList"]),
     change() {
       this.searchData = this.listData
         .filter((data) => {
@@ -312,6 +362,7 @@ export default {
     },
   },
   components: {
+    ...mapState(memberStore, ["userInfo"]),
     BaseModal,
   },
 };

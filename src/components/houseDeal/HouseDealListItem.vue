@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="house" :items-per-page="10" class="elevation-1">
+    <v-data-table
+      :headers="headers"
+      :items="house"
+      :items-per-page="10"
+      class="elevation-1"
+    >
     </v-data-table>
   </div>
 </template>
