@@ -12,7 +12,7 @@
       </div>
       <div>
         <v-btn class="primary mx-3">수정하기</v-btn>
-        <v-btn class="error">탈퇴하기</v-btn>
+        <v-btn @click="withdrawalExcutor()" class="error">탈퇴하기</v-btn>
       </div>
     </div>
 
@@ -21,20 +21,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 const memberStore = "memberStore";
 
 export default {
   name: "MyPageUserInfo",
-  components: {
-    
-  },
+  components: {},
   data() {
-    return{};
+    return {};
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+  },
+  methods: {
+    ...mapActions(memberStore, ["userWithdrawal"]),
+    withdrawalExcutor() {
+      this.userWithdrawal(this.userInfo.userId);
+    },
   },
 };
 </script>

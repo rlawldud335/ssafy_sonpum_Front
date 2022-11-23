@@ -31,7 +31,6 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <!-- <v-btn color="blue darken-1" text @click="closeLoginDialog">Login</v-btn> -->
       <v-btn color="blue darken-1" text @click="confirm">Login</v-btn>
     </v-card-actions>
   </v-card>

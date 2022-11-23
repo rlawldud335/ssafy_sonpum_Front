@@ -1,5 +1,9 @@
 import { sidoList, gugunList, dongList } from "@/api/house.js";
-import { houseProductList, productDetail } from "@/api/houseProduct.js";
+import {
+  houseProductList,
+  productDetail,
+  userProductList,
+} from "@/api/houseProduct.js";
 
 const houseProductStore = {
   namespaced: true,
@@ -9,6 +13,7 @@ const houseProductStore = {
     dongs: [{ value: null, text: "동 선택" }],
     products: [],
     product: null,
+    userProducts: [],
     searchKey: null,
     searchWord: null,
   },
@@ -26,6 +31,9 @@ const houseProductStore = {
     CLEAR_PRODUCT_LIST(state) {
       state.products = [];
       state.product = null;
+    },
+    CLEAR_USER_PRODUCT_LIST(state) {
+      state.userProducts = [];
     },
     CLEAR_SEARCH_KEY(state) {
       state.searchKey = null;
@@ -52,6 +60,10 @@ const houseProductStore = {
     SET_PRODUCT_LIST(state, products) {
       state.products = products;
       console.log("# 아파트 매물: ", products);
+    },
+    SET_USER_PRODUCT_LIST(state, userProducts) {
+      state.userProducts = userProducts;
+      console.log("# USER가 등록한 매물: ", userProducts);
     },
     SET_SEARCH_KEY(state, key) {
       state.searchKey = key;
@@ -140,6 +152,20 @@ const houseProductStore = {
         },
         (error) => {
           console.log("# 매물 상세조회 data 가져오기 실패 ", error);
+        }
+      );
+    },
+    getUserProduct: ({ commit }, userId) => {
+      console.log("# 매물 목록을 조회할 USER: ", userId);
+
+      userProductList(
+        userId,
+        ({ data }) => {
+          console.log("# USER가 등록한 매물 목록 가져오기 성공");
+          commit("SET_USER_PRODUCT_LIST", data);
+        },
+        (error) => {
+          console.log("# USER가 등록한 매물 목록 가져오기 Fail-", error);
         }
       );
     },

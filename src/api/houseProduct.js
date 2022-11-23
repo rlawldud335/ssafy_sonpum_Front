@@ -13,4 +13,10 @@ function productDetail(product, success, fail) {
   api.get(`/houseProduct/${product.houseProductId}`).then(success).catch(fail);
 }
 
-export { houseProductList, productDetail };
+/* 마이페이지 - 매물 관련 */
+function userProductList(userid, success, fail) {
+  console.log("## userId: ", userid);
+  api.get(`/mypage/product/${userid}`).then(success).catch(fail);
+}
+
+export { houseProductList, productDetail, userProductList };

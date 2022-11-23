@@ -1,6 +1,12 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout } from "@/api/user";
+import {
+  login,
+  findById,
+  tokenRegeneration,
+  logout,
+  withdrawal,
+} from "@/api/user";
 
 const memberStore = {
   namespaced: true,
@@ -32,7 +38,7 @@ const memberStore = {
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
-      console.log("# 로그인 성공: ", userInfo);
+      console.log("# SET_USER_INFO: ", userInfo);
     },
   },
   actions: {
@@ -143,11 +149,14 @@ const memberStore = {
         userId,
         ({ data }) => {
           if (data.message === "success") {
-            console.log("# 로그아웃 성공 ", this.isLogin);
             commit("SET_IS_LOGIN", false);
             commit("SET_USER_INFO", null);
             commit("SET_IS_VALID_TOKEN", false);
-            console.log("# 로그아웃 후 isLogin 확인 ", this.isLogin);
+            console.log(
+              "# 로그아웃 후 isLogin, userInfo 확인 ",
+              this.isLogin,
+              this.userInfo
+            );
           } else {
             console.log("유저 정보 없음!!!!");
           }
@@ -156,6 +165,24 @@ const memberStore = {
           console.log(error);
         }
       );
+    },
+    async userWithdrawal({ commit }, userId) {
+      console.log("# 회원탈퇴 userid: ", userId);
+      await withdrawal(userId, ({ data }) => {
+        if (data.message == "success") {
+          console.log("# 회원탈퇴 성공");
+          commit("SET_IS_LOGIN", false);
+          commit("SET_USER_INFO", null);
+          commit("SET_IS_VALID_TOKEN", false);
+          console.log(
+            "# 회원탈퇴 후 isLogin, userInfo 확인 ",
+            this.isLogin,
+            this.userInfo
+          );
+        } else {
+          console.log("# 회원탈퇴 Fail-");
+        }
+      });
     },
   },
 };

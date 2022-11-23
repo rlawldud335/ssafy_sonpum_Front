@@ -35,6 +35,18 @@ async function registerUser(user, success, fail) {
   await api.post(`/user/register`, user).then(success).catch(fail);
 }
 
+async function withdrawal(userid, success, fail) {
+  console.log("## withdrawal: ", userid);
+  await api.get(`/mypage/out/${userid}`).then(success).catch(fail);
+  // await api
+  //   .get(`/mypage/out/${userid}`)
+  //   .then((response) => {
+  //     console.log("# 회원탈퇴 성공", response.data, response);
+  //     success = this.response.data;
+  //   })
+  //   .catch(fail);
+}
+
 export {
   login,
   findById,
@@ -42,4 +54,5 @@ export {
   logout,
   userIdCheck,
   registerUser,
+  withdrawal,
 };
