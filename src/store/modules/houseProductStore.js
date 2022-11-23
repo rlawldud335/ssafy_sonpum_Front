@@ -14,12 +14,17 @@ const houseProductStore = {
     dongs: [{ value: null, text: "동 선택" }],
     products: [],
     product: null,
-    userProducts: [],
+    userProducts: [],         
     userReviews: [],
     searchKey: null,
     searchWord: null,
   },
-  getters: {},
+  getters: {
+    // ! for. 마커
+    products(state) {
+      return state.product;
+    }
+  },
   mutations: {
     CLEAR_SIDO_LIST(state) {
       state.sidos = [{ value: null, text: "시도 선택" }];
