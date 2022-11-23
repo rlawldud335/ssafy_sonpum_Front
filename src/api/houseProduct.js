@@ -18,5 +18,14 @@ function userProductList(userid, success, fail) {
   console.log("## userId: ", userid);
   api.get(`/mypage/product/${userid}`).then(success).catch(fail);
 }
+function reviewHouseProductList(writerUserid, success, fail) {
+  console.log("## userId: ", writerUserid);
+  api.get(`/mypage//review/${writerUserid}`).then(success).catch(fail);
+}
 
-export { houseProductList, productDetail, userProductList };
+export {
+  houseProductList,
+  productDetail,
+  userProductList,
+  reviewHouseProductList,
+};

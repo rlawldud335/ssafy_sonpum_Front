@@ -3,6 +3,7 @@ import {
   houseProductList,
   productDetail,
   userProductList,
+  reviewHouseProductList,
 } from "@/api/houseProduct.js";
 
 const houseProductStore = {
@@ -14,6 +15,7 @@ const houseProductStore = {
     products: [],
     product: null,
     userProducts: [],
+    userReviews: [],
     searchKey: null,
     searchWord: null,
   },
@@ -34,6 +36,9 @@ const houseProductStore = {
     },
     CLEAR_USER_PRODUCT_LIST(state) {
       state.userProducts = [];
+    },
+    CLEAR_USER_REVIEW_LIST(state) {
+      state.userReviews = [];
     },
     CLEAR_SEARCH_KEY(state) {
       state.searchKey = null;
@@ -64,6 +69,10 @@ const houseProductStore = {
     SET_USER_PRODUCT_LIST(state, userProducts) {
       state.userProducts = userProducts;
       console.log("# USER가 등록한 매물: ", userProducts);
+    },
+    SET_USER_REVIEW_LIST(state, userReviews) {
+      state.userReviews = userReviews;
+      console.log("# USER가 등록한 리뷰: ", userReviews);
     },
     SET_SEARCH_KEY(state, key) {
       state.searchKey = key;
@@ -166,6 +175,20 @@ const houseProductStore = {
         },
         (error) => {
           console.log("# USER가 등록한 매물 목록 가져오기 Fail-", error);
+        }
+      );
+    },
+    getUserReview: ({ commit }, userId) => {
+      console.log("# 리뷰를 조회할 USER: ", userId);
+
+      reviewHouseProductList(
+        userId,
+        ({ data }) => {
+          console.log("# USER가 등록한 리뷰 목록 가져오기 성공");
+          commit("SET_USER_REVIEW_LIST", data);
+        },
+        (error) => {
+          console.log("# USER가 등록한 리뷰 가져오기 Fail-", error);
         }
       );
     },
