@@ -241,10 +241,13 @@ export default {
     //this.listData = testData;
 
     // 공지사항 목록 가져오기
-    if (this.getNoticeList(this.search)) {
+    // if (this.getNoticeList(this.search)) {
+    //   this.listData = this.notices;
+    //   //console.log("##### listData ", this.listData);
+    //   console.log("#### userInfo 확인 ", this.userInfo);
+    // }
+    if (this.getNoticeList()) {
       this.listData = this.notices;
-      //console.log("##### listData ", this.listData);
-      console.log("#### userInfo 확인 ", this.userInfo);
     }
   },
   computed: {

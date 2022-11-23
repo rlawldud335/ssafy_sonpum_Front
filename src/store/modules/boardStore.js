@@ -28,14 +28,24 @@ const boardStore = {
     },
   },
   actions: {
-    getNoticeList: ({ commit }, search) => {
-      if (search != null && search != "") {
-        const search = {
-          key: "subject",
-          word: search,
-        };
+    getNoticeList: ({ commit }) => {
+    //getNoticeList: ({ commit }, search) => {
+      // if (search != null && search != "") {
+      //   const search = {
+      //     key: "subject",
+      //     word: search,
+      //   };
+      // } else {
+      //   const search = {
+      //     key: "",
+      //     word: "",
+      //   }
+      // }
+      // console.log("# 공지사항 목록 - 검색조건: ", search);
+      const search = {
+        "key": "",
+        "word": "",
       }
-      console.log("# 공지사항 목록 - 검색조건: ", search);
 
       noticeListArticle(
         search,
