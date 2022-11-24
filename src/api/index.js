@@ -12,14 +12,14 @@ function apiInstance() {
 }
 
 // form-data 형식 axios instance
-function apiFormInstance() {
-  const instance = axios.create({
-    baseURL: process.env.VUE_APP_API_BASE_URL,
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-    },
-  });
-  return instance;
-}
+// function apiFormInstance() {
+//   const instance = axios.create({
+//     baseURL: process.env.VUE_APP_API_BASE_URL,
+//     headers: {
+//       "Content-type": "multipart/form-data",
+//     },
+//   });
+//   return instance;
+// }
 
-export { apiInstance, apiFormInstance };
+export { apiInstance };

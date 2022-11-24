@@ -118,6 +118,7 @@
               placeholder="Pick an Images"
               prepend-icon="mdi-camera"
               label="Images"
+              v-model="product.files"
             ></v-file-input>
           </v-col>
         </v-row>
@@ -134,6 +135,10 @@
 
 <script>
 import { sidoList, gugunList, dongList, addressList } from "@/api/house";
+import { mapActions, mapState } from "vuex";
+
+const houseProductStore = "houseProductStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseProductRegister",
@@ -160,7 +165,7 @@ export default {
         area: null,
         dealType: null,
         content: null,
-        files: null,
+        files: "",
       },
       rules: [
         (value) =>
@@ -171,7 +176,9 @@ export default {
     };
   },
   props: [],
-  computed: {},
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   created() {
     sidoList(
       ({ data }) => {
@@ -183,7 +190,12 @@ export default {
     );
   },
   methods: {
+    ...mapActions(houseProductStore, ["registerProduct"]),
     closeRegisterDialog() {
+      // 매물 등록
+      this.product.userId = this.userInfo.userId;
+      this.registerProduct(this.product);
+
       this.$emit("close-register-dialog");
     },
     getGugunList() {
@@ -227,6 +239,13 @@ export default {
         );
       }
     },
+    // selectApartName() {
+    //   this.addressList.forEach((address) => {
+    //     if (this.product.addressId == address.addressId) {
+    //       this.product.apartName = address.apartName;
+    //     }
+    //   });
+    // },
   },
 };
 </script>
