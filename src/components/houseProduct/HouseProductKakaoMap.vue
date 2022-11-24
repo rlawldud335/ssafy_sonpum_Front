@@ -1,7 +1,7 @@
 <template>
   <div id="map"></div>
 </template>
-  
+
 <script>
 import { mapState } from "vuex";
 
@@ -22,36 +22,49 @@ export default {
     products(value) {
       console.log("# 값 변경 감지!! ", value);
 
-      // 기존 마커 삭제 
+      // 기존 마커 삭제
       if (this.markers.length > 0) {
         this.markers.forEach((marker) => marker.setMap(null));
       }
 
-      const positions = []; 
-      this.products.forEach(function(product) {
-        positions.push({ title:product.apartName, latlng: new kakao.maps.LatLng(product.lat, product.lng) })
+      const positions = [];
+      this.products.forEach(function (product) {
+        positions.push({
+          title: product.apartName,
+          latlng: new kakao.maps.LatLng(product.lat, product.lng),
+        });
       });
       console.log("# 만든 마커 객체배열 확인 ", positions);
 
       // // 마커 이미지의 이미지 주소입니다
-      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-      for (var i = 0; i < positions.length; i ++) {
-          // 마커 이미지의 이미지 크기 입니다
-          var imageSize = new kakao.maps.Size(24, 35);
-          // 마커 이미지를 생성합니다    
-          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-          
-          // 마커를 생성합니다
-          var marker = new kakao.maps.Marker({
-              map: this.map, // 마커를 표시할 지도
-              position: positions[i].latlng, // 마커를 표시할 위치
-              title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-              image : markerImage // 마커 이미지 
-          });
-          this.markers.push(marker);
+      var imageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      for (var i = 0; i < positions.length; i++) {
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(24, 35);
+        // 마커 이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+          map: this.map, // 마커를 표시할 지도
+          position: positions[i].latlng, // 마커를 표시할 위치
+          title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+          image: markerImage, // 마커 이미지
+        });
+        this.markers.push(marker);
       }
       marker.setMap(this.map);
-    }
+
+      // * 해당 위치로 map 이동
+      // 이동할 위도 경도 위치를 생성합니다
+      var moveLatLon = new kakao.maps.LatLng(
+        this.products[0].lat,
+        this.products[0].lng
+      );
+      // 지도 중심을 이동 시킵니다
+      this.map.setCenter(moveLatLon);
+    },
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -60,7 +73,8 @@ export default {
       const script = document.createElement("script");
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0";
+      script.src =
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0";
       document.head.appendChild(script);
     }
   },
@@ -69,8 +83,8 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(37.5013, 127.0397),
-        //level: 3,
-        level: 15,
+        level: 3,
+        //level: 15,
       };
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
@@ -86,7 +100,9 @@ export default {
       if (this.markers.length > 0) {
         this.markers.forEach((marker) => marker.setMap(null));
       }
-      const positions = markerPositions.map((position) => new kakao.maps.LatLng(...position));
+      const positions = markerPositions.map(
+        (position) => new kakao.maps.LatLng(...position)
+      );
       if (positions.length > 0) {
         this.markers = positions.map(
           (position) =>
@@ -95,7 +111,10 @@ export default {
               position,
             })
         );
-        const bounds = positions.reduce((bounds, latlng) => bounds.extend(latlng), new kakao.maps.LatLngBounds());
+        const bounds = positions.reduce(
+          (bounds, latlng) => bounds.extend(latlng),
+          new kakao.maps.LatLngBounds()
+        );
         this.map.setBounds(bounds);
       }
     },
@@ -119,7 +138,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 #map {
   width: 100%;

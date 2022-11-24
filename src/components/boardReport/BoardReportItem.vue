@@ -56,9 +56,9 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions(boardStore, ["detailReport"]),
+    ...mapActions(boardStore, ["getDetailReportArticle"]),
     moveDetailPage() {
-      this.detailReport(this.report);
+      this.getDetailReportArticle(this.report);
       this.$router.push({ name: "BoardReportDetail" });
     },
   },

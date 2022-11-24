@@ -29,7 +29,7 @@ const boardStore = {
   },
   actions: {
     getNoticeList: ({ commit }) => {
-    //getNoticeList: ({ commit }, search) => {
+      //getNoticeList: ({ commit }, search) => {
       // if (search != null && search != "") {
       //   const search = {
       //     key: "subject",
@@ -43,9 +43,9 @@ const boardStore = {
       // }
       // console.log("# 공지사항 목록 - 검색조건: ", search);
       const search = {
-        "key": "",
-        "word": "",
-      }
+        key: "",
+        word: "",
+      };
 
       noticeListArticle(
         search,
@@ -85,7 +85,7 @@ const boardStore = {
         report.articleNo,
         ({ data }) => {
           console.log("# 사기수법 상세조회 data 가져오기 성공");
-          commit("SET_DETAIL_PRODUCT", data);
+          commit("SET_DETAIL_REPORT", data);
         },
         (error) => {
           console.log("# 사기수법 상세조회 data 가져오기 Fail- ", error);
