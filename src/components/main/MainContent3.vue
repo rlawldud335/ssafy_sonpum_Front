@@ -25,7 +25,10 @@
           border-radius: 20px;
         "
       >
-        <v-img :src="require('@/assets/img/house.jpg')" width="40%"></v-img>
+        <v-img
+          :src="require('@/assets/img/house.jpg')"
+          style="width: 100%; height: 100%; border-radius: 20px"
+        ></v-img>
       </div>
       <div
         style="
@@ -53,7 +56,10 @@
           border-radius: 20px;
         "
       >
-        <v-img :src="require('@/assets/img/money.jpg')" width="40%"></v-img>
+        <v-img
+          :src="require('@/assets/img/money.jpg')"
+          style="width: 100%; height: 100%; border-radius: 20px"
+        ></v-img>
       </div>
       <div
         style="

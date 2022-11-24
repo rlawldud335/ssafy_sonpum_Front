@@ -2,17 +2,16 @@
   <div class="myhouse-product-main">
     <div class="myhouse-product-title">
       <span>내가 등록한 매물</span>
-      <v-btn class="primary">매물 등록하기</v-btn>
+      <v-dialog v-model="registerDialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="primary" v-bind="attrs" v-on="on">매물 등록하기</v-btn>
+        </template>
+        <house-product-register
+          v-on:close-register-dialog="closeRegisterDialog"
+        ></house-product-register>
+      </v-dialog>
     </div>
 
-    <!-- <div class="myhouse-product-contents">
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-    </div> -->
     <div
       class="myhouse-product-contents"
       v-if="userProducts && userProducts.length != 0"
@@ -30,7 +29,7 @@
 </template>
 
 <script>
-//import HouseProductItem from "@/components/houseProduct/HouseProductItem.vue";
+import HouseProductRegister from "@/components/houseProduct/HouseProductRegister.vue";
 import UserHouseProductItem from "../houseProduct/UserHouseProductItem.vue";
 import { mapActions, mapState } from "vuex";
 
@@ -41,9 +40,12 @@ export default {
   name: "MyHouseProduct",
   components: {
     UserHouseProductItem,
+    HouseProductRegister,
   },
   data() {
-    return {};
+    return {
+      registerDialog: false,
+    };
   },
   computed: {
     ...mapState(houseProductStore, ["userProducts"]),
@@ -54,6 +56,9 @@ export default {
   },
   methods: {
     ...mapActions(houseProductStore, ["getUserProduct"]),
+    closeRegisterDialog() {
+      this.registerDialog = false;
+    },
   },
 };
 </script>
