@@ -42,7 +42,9 @@
         "
       >
         <div class="text-h5 font-weight-bold primary--text">1. 매물 찾기</div>
-        <div class="text-body-1 py-4">원하는 조건의 아파트를 찾아보세요!</div>
+        <div class="text-body-1 py-4">
+          빠르게 원하는 조건의 아파트 매물을 찾아보세요!
+        </div>
         <v-btn color="#3876f2" class="white--text"> 매물 보러 가기</v-btn>
       </div>
     </div>
