@@ -2,26 +2,18 @@
   <div class="myhouse-product-main">
     <div class="myhouse-product-title">
       <span>내가 북마크한 매물</span>
-      <v-btn class="primary">매물 등록하기</v-btn>
     </div>
 
     <div class="myhouse-product-contents">
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
-      <house-product-item></house-product-item>
+      <!-- <house-product-item></house-product-item> -->
     </div>
   </div>
 </template>
 
 <script>
-import HouseProductItem from "@/components/houseProduct/HouseProductItem.vue";
-
 export default {
   components: {
-    HouseProductItem,
+    // HouseProductItem,
   },
 };
 </script>
