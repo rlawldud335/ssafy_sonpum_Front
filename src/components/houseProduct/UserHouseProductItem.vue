@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 const houseProductStore = "houseProductStore";
 
@@ -46,10 +46,14 @@ export default {
   },
   methods: {
     ...mapActions(houseProductStore, ["detailProduct"]),
+    ...mapMutations(houseProductStore, ["CLEAR_PRODUCT_LIST"]),
     moveDetailPage() {
       this.detailProduct(this.product);
       this.$router.push({ name: "houseProductDetail" });
     },
+  },
+  mounted() {
+    this.CLEAR_PRODUCT_LIST();
   },
   filters: {
     price(value) {

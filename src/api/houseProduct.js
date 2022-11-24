@@ -13,6 +13,10 @@ function productDetail(product, success, fail) {
   console.log("## product: ", product);
   api.get(`/houseProduct/${product.houseProductId}`).then(success).catch(fail);
 }
+function deleteHouseProduct(houseProductid, success, fail) {
+  console.log("## houseProductid: ", houseProductid);
+  api.delete(`/houseProduct/${houseProductid}`).then(success).catch(fail);
+}
 
 /* 마이페이지 - 매물 관련 */
 function userProductList(userid, success, fail) {
@@ -53,4 +57,5 @@ export {
   userProductList,
   reviewHouseProductList,
   registerHouseProduct,
+  deleteHouseProduct,
 };

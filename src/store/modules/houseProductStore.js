@@ -5,6 +5,7 @@ import {
   userProductList,
   reviewHouseProductList,
   registerHouseProduct,
+  deleteHouseProduct,
 } from "@/api/houseProduct.js";
 
 const houseProductStore = {
@@ -168,6 +169,7 @@ const houseProductStore = {
         product,
         ({ data }) => {
           console.log("# 매물 상세조회 data 가져오기 성공");
+          data.houseProductId = product.houseProductId;
           commit("SET_DETAIL_PRODUCT", data);
         },
         (error) => {
@@ -226,6 +228,36 @@ const houseProductStore = {
         },
         (error) => {
           console.log("# 매물 등록 FAil- ", error);
+        }
+      );
+    },
+    deleteProduct: ({ commit }, houseProductid) => {
+      console.log("# 삭제할 매물ID: ", houseProductid);
+      
+      deleteHouseProduct(
+        houseProductid,
+        ({ data }) => {
+          console.log("# 매물 삭제 성공 ", data);
+          const params = {
+            dongCode: this.product.dongCode,
+            key: "",
+            word: "",
+          };
+    
+          houseProductList(
+            params,
+            ({ data }) => {
+              console.log("# 매물 리스트 가져오기 성공");
+              console.log(data);
+              commit("SET_PRODUCT_LIST", data);
+            },
+            (error) => {
+              console.log("# 매물 리스트 가져오기 실패" + error);
+            }
+          );
+        },
+        (error) => {
+          console.log("# 매물 삭제 Fail- ", error);
         }
       );
     },

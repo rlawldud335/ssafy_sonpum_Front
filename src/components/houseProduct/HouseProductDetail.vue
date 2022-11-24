@@ -100,7 +100,7 @@
     <v-divider></v-divider>
 
     <div class="detail-body-btns">
-      <v-btn color="primary">매물 삭제하기</v-btn>
+      <v-btn color="primary" @click="delProduct">매물 삭제하기</v-btn>
       <v-btn color="primary">매물 수정하기</v-btn>
       <v-btn color="error">매물 신고하기</v-btn>
     </div>
@@ -108,18 +108,25 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import RoadViewMap from "../map/RoadViewMap.vue";
 
 const houseProductStore = "houseProductStore";
 
 export default {
-  name: "HouseProductStore",
+  name: "HouseProductDetail",
   components: {
     RoadViewMap,
   },
   computed: {
     ...mapState(houseProductStore, ["product"]),
+  },
+  methods: {
+    ...mapActions(houseProductStore, ["deleteProduct"]),
+    delProduct() {
+      this.deleteProduct(this.product.houseProductId);   // 매물 삭제 
+      this.$router.push({ name: "houseProduct" }); 
+    },
   },
   filters: {
     dealType(value) {
@@ -137,7 +144,11 @@ export default {
       }else {
         return "판매완료";
       }
-    }
+    },
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
   data() {
     return {
