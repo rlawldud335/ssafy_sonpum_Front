@@ -1,35 +1,32 @@
 <template>
-  <v-hover v-slot="{ hover }">
-    <div
-      class="myhouse-product-item"
-      :style="{ opacity: hover ? '0.6' : '' }"
+  <div class="myhouse-product-item">
+    <v-img
+      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+      style="border-radius: 20px 20px 0px 0px"
       @click="moveDetailPage()"
-    >
-      <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        style="border-radius: 20px 20px 0px 0px"
-      ></v-img>
-      <div class="myhouse-product-item-title">
-        <!-- <div class="product-title-name">{{ product.addressId }}</div> -->
-        <div class="product-title-name">{{ product.apartName }}</div>
-
-        <v-icon
-          color="blue darken-2"
-          class="mr-3"
-          @click="bookmark = !bookmark"
-        >
-          {{ bookmark ? "mdi-bookmark" : "mdi-bookmark-outline" }}
-        </v-icon>
+    ></v-img>
+    <div class="myhouse-product-item-title">
+      <div
+        class="product-title-name"
+        style="padding: 15px; padding-bottom: 0px"
+        @click="moveDetailPage()"
+      >
+        {{ product.apartName }}
       </div>
-      <!-- <div class="product-price">
-        {{ product.dealType }} | {{ product.dealAmount }}
-      </div> -->
-      <div class="product-price">
-        {{ product.dealType | dealType }} |
-        {{ product.dealAmount | dealAmount }}
-      </div>
+      <v-icon
+        style="padding-top: 15px"
+        color="blue darken-2"
+        class="mr-3"
+        @click="bookmark = !bookmark"
+      >
+        {{ bookmark ? "mdi-bookmark" : "mdi-bookmark-outline" }}
+      </v-icon>
     </div>
-  </v-hover>
+    <div style="padding: 15px" class="product-price" @click="moveDetailPage()">
+      {{ product.dealType | dealType }} |
+      {{ product.dealAmount | dealAmount }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -72,7 +69,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .myhouse-product-item {
   width: 200px;
   margin: 10px;
@@ -89,13 +86,12 @@ export default {
 
 .product-title-name {
   font-size: 1rem;
-  padding: 10px;
-  padding-left: 20px;
   font-weight: 500;
+  padding: 0;
 }
 
 .product-price {
   font-size: 0.9rem;
-  padding: 15px;
+  padding: 0;
 }
 </style>

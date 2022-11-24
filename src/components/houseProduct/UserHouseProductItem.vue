@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .myhouse-product-item {
   width: 200px;
   margin: 10px;

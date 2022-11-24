@@ -59,15 +59,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #map {
-  width: 400px;
-  height: 400px;
-}
-
-.button-group {
-  margin: 10px 0px;
-}
-
-button {
-  margin: 0 3px;
+  width: 500px;
+  height: 500px;
 }
 </style>

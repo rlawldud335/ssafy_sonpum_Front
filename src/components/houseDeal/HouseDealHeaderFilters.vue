@@ -9,7 +9,7 @@
           showAmount = true;
         "
         :style="{
-          'background-color': selected.key == 'amount' ? '#886fbf' : '',
+          'background-color': selected.key == 'amount' ? '#4589ED' : '',
           color: selected.key == 'amount' ? 'white' : 'black',
         }"
         >금액</v-btn
@@ -42,7 +42,7 @@
           showArea = true;
         "
         :style="{
-          'background-color': selected.key == 'area' ? '#886fbf' : '',
+          'background-color': selected.key == 'area' ? '#4589ED' : '',
           color: selected.key == 'area' ? 'white' : 'black',
         }"
         >면적</v-btn
@@ -73,7 +73,7 @@
           showFloor = true;
         "
         :style="{
-          'background-color': selected.key == 'floor' ? '#886fbf' : '',
+          'background-color': selected.key == 'floor' ? '#4589ED' : '',
           color: selected.key == 'floor' ? 'white' : 'black',
         }"
         >층</v-btn
@@ -104,7 +104,7 @@
           showBuildYear = true;
         "
         :style="{
-          'background-color': selected.key == 'buildYear' ? '#886fbf' : '',
+          'background-color': selected.key == 'buildYear' ? '#4589ED' : '',
           color: selected.key == 'buildYear' ? 'white' : 'black',
         }"
         >건설년도</v-btn
@@ -137,7 +137,7 @@
           showDealDate = true;
         "
         :style="{
-          'background-color': selected.key == 'dealDate' ? '#886fbf' : '',
+          'background-color': selected.key == 'dealDate' ? '#4589ED' : '',
           color: selected.key == 'dealDate' ? 'white' : 'black',
         }"
         >거래기간</v-btn

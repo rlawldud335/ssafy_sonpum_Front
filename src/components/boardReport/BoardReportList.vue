@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="end">
-      <v-btn class="mr-5" @click="moveWrite()">글쓰기</v-btn>
+      <v-btn color="primary" class="mr-5" @click="moveWrite()">글쓰기</v-btn>
     </v-row>
 
     <v-row class="board-report__content">
