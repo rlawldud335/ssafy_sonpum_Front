@@ -24,7 +24,7 @@
               </v-list-tile-title>
             </v-list-tile-content>
           </v-hover>
-          <v-list-tile-action>
+          <v-list-tile-action v-if="userInfo != null && userInfo.role == 'ADMIN'">
             <v-icon ripple @click="onEdit(index)"> edit </v-icon>
             <v-icon ripple @click="onRemove(index)"> delete </v-icon>
           </v-list-tile-action>
@@ -330,11 +330,11 @@ export default {
     },
     onEdit(index) {
       this.curSelectIndex = this.calIndex(index);
-      this.selectedData.id = this.listData[this.curSelectIndex].id;
-      this.selectedData.subject = this.listData[this.curSelectIndex].subject;
-      this.selectedData.content = this.listData[this.curSelectIndex].content;
+        this.selectedData.id = this.listData[this.curSelectIndex].id;
+        this.selectedData.subject = this.listData[this.curSelectIndex].subject;
+        this.selectedData.content = this.listData[this.curSelectIndex].content;
 
-      this.editDialog = true;
+        this.editDialog = true;
     },
     calIndex(index) {
       switch (this.curPageNum) {
