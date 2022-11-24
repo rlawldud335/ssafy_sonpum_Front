@@ -65,10 +65,7 @@ export default {
       report: {
         userId: null,
         subject: null,
-        content: `
-      <h1>Yay Headlines!</h1>
-      <p>All these <strong>cool tags</strong> are working now.</p>
-    `,
+        content: `<br>`,
         files: null,
       },
       extensions: [

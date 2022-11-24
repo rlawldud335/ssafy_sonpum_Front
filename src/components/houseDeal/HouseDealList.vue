@@ -6,7 +6,28 @@
           {{ house[0].apartName + " (" + house.length + ")" }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <house-deal-list-item :house="house"></house-deal-list-item>
+          <div style="margin: 20px">
+            <p style="font-size: 1rem; font-weight: bold">년도별 가격 변화</p>
+            <v-sheet
+              class="v-sheet--offset mx-auto"
+              color="cyan"
+              elevation="12"
+              max-width="calc(100% - 32px)"
+            >
+              <v-sparkline
+                :labels="makeChartLabel(house)"
+                :value="makeChartValue(house)"
+                color="white"
+                line-width="2"
+                padding="16"
+              ></v-sparkline>
+            </v-sheet>
+          </div>
+
+          <div>
+            <p style="font-size: 1rem; font-weight: bold">거래 목록</p>
+            <house-deal-list-item :house="house"></house-deal-list-item>
+          </div>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -28,14 +49,74 @@ export default {
     HouseDealListItem,
   },
   data() {
-    return {};
+    return {
+      chartList: {},
+    };
   },
   computed: {
     ...mapState(houseDealStore, ["houses"]),
   },
+  watch: {
+    houses() {
+      // this.makeChartList();
+    },
+  },
   methods: {
-    print() {
-      console.log(this.houses);
+    makeChartList() {
+      for (let key in this.houses) {
+        const house = this.houses[key];
+        const avg = {};
+        const cnt = {};
+        house.forEach((h) => {
+          if (!avg[h.dealYear]) {
+            avg[h.dealYear] = parseInt(h.dealAmount.replace(/,/g, ""));
+            cnt[h.dealYear] = 1;
+          } else {
+            avg[h.dealYear] += parseInt(h.dealAmount.replace(/,/g, ""));
+            cnt[h.dealYear] = cnt[h.dealYear] + 1;
+          }
+        });
+        for (let y in avg) {
+          avg[y] = avg[y] / cnt[y];
+        }
+        this.chartList[key] = { label: null, value: null };
+        this.chartList[key].label = Object.keys(avg);
+        this.chartList[key].value = Object.values(avg);
+      }
+    },
+    makeChartLabel(house) {
+      const avg = {};
+      const cnt = {};
+      house.forEach((h) => {
+        if (!avg[h.dealYear]) {
+          avg[h.dealYear] = parseInt(h.dealAmount.replace(/,/g, ""));
+          cnt[h.dealYear] = 1;
+        } else {
+          avg[h.dealYear] += parseInt(h.dealAmount.replace(/,/g, ""));
+          cnt[h.dealYear] = cnt[h.dealYear] + 1;
+        }
+      });
+      for (let y in avg) {
+        avg[y] = avg[y] / cnt[y];
+      }
+      return Object.keys(avg);
+    },
+    makeChartValue(house) {
+      const avg = {};
+      const cnt = {};
+      house.forEach((h) => {
+        if (!avg[h.dealYear]) {
+          avg[h.dealYear] = parseInt(h.dealAmount.replace(/,/g, ""));
+          cnt[h.dealYear] = 1;
+        } else {
+          avg[h.dealYear] += parseInt(h.dealAmount.replace(/,/g, ""));
+          cnt[h.dealYear] = cnt[h.dealYear] + 1;
+        }
+      });
+      for (let y in avg) {
+        avg[y] = avg[y] / cnt[y];
+      }
+      return Object.values(avg);
     },
   },
 };
