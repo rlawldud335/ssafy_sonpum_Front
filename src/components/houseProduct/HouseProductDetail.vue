@@ -46,9 +46,7 @@
         <div class="detail-content-layout">
           <p class="detail-content-title">가격</p>
           <p class="detail-content-content">
-            {{
-              (parseInt(product.dealAmount.replace(",", "")) * 10000) | price
-            }}원
+            {{ (parseInt(product.dealAmount.replace(",", "")) * 10000) | price }}원
           </p>
         </div>
         <v-divider></v-divider>
@@ -104,12 +102,16 @@
       <v-btn color="primary">매물 수정하기</v-btn>
       <v-btn color="error">매물 신고하기</v-btn>
     </div>
+
+    <v-divider></v-divider>
+    <house-product-review :houseProductId="product.houseProductId"></house-product-review>
   </v-container>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import RoadViewMap from "../map/RoadViewMap.vue";
+import HouseProductReview from "./HouseProductReview.vue";
 
 const houseProductStore = "houseProductStore";
 
@@ -117,6 +119,7 @@ export default {
   name: "HouseProductStore",
   components: {
     RoadViewMap,
+    HouseProductReview,
   },
   computed: {
     ...mapState(houseProductStore, ["product"]),

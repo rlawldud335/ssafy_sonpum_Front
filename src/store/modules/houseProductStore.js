@@ -168,6 +168,7 @@ const houseProductStore = {
         product,
         ({ data }) => {
           console.log("# 매물 상세조회 data 가져오기 성공");
+          data.houseProductId = product.houseProductId;
           commit("SET_DETAIL_PRODUCT", data);
         },
         (error) => {
