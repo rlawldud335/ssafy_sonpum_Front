@@ -69,6 +69,15 @@
               <v-text-field label="Subject" v-model="newData.subject" required>
               </v-text-field>
             </v-flex>
+            <!-- <v-flex xs12>
+              <v-text-field
+                label="Desc"
+                v-model="newData.desc"
+                @keydown.enter="submit"
+                required
+              >
+              </v-text-field>
+            </v-flex> -->
             <v-flex xs12>
               <v-text-field
                 label="Desc"

@@ -11,7 +11,12 @@ const houseDealStore = {
     searchKey: null,
     searchWord: null,
   },
-  getters: {},
+  getters: {
+    // ! for. 마커
+    houses(state) {
+      return state.house;
+    },
+  },
   mutations: {
     CLEAR_SIDO_LIST(state) {
       state.sidos = [{ value: null, text: "시도 선택" }];

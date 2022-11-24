@@ -14,7 +14,7 @@ const houseProductStore = {
     dongs: [{ value: null, text: "동 선택" }],
     products: [],
     product: null,
-    userProducts: [],         
+    userProducts: [],
     userReviews: [],
     searchKey: null,
     searchWord: null,
@@ -23,7 +23,7 @@ const houseProductStore = {
     // ! for. 마커
     products(state) {
       return state.product;
-    }
+    },
   },
   mutations: {
     CLEAR_SIDO_LIST(state) {
