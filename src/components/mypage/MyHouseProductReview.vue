@@ -2,12 +2,12 @@
   <div>MyHouseProductReview</div>
 </template> -->
 <template>
-  <div class="myhouse-product-main">
-    <div class="myhouse-product-title">
+  <div class="mypage-review-main">
+    <div class="mypage-review-title">
       <span>내가 등록한 매물 Review</span>
     </div>
     <div
-      class="myhouse-product-contents"
+      class="mypage-review-contents"
       v-if="userReviews && userReviews.length != 0"
     >
       <user-house-product-review-item
@@ -51,29 +51,19 @@ export default {
 </script>
 
 <style>
-.myhouse-product-item {
-  width: 200px;
-  margin: 10px;
-  border-radius: 20px;
-  height: fit-content;
-  background-color: white;
-  box-shadow: 0 5px 18px -7px rgb(138, 138, 138);
+.mypage-review-main {
+  padding: 20px;
 }
 
-.myhouse-product-item-title {
+.mypage-review-title {
   display: flex;
   justify-content: space-between;
+  margin: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
-.product-title-name {
-  font-size: 1rem;
-  padding: 10px;
-  padding-left: 20px;
-  font-weight: 500;
-}
-
-.product-price {
-  font-size: 0.9rem;
-  padding: 15px;
+.mypage-review-content {
+  padding: 50px;
 }
 </style>

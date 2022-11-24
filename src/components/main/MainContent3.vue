@@ -47,7 +47,11 @@
           직접 지역에 방문하지 않고 SONPUM을 통해 <br />
           원하는 지역과 조건의 매물을 쉽게 찾아볼 수 있습니다!
         </div>
-        <v-btn color="#3876f2" class="white--text"> 매물 보러 가기</v-btn>
+        <router-link :to="{ name: 'houseDeal' }">
+          <v-btn color="#3876f2" class="white--text" width="100%">
+            매물 보러 가기</v-btn
+          >
+        </router-link>
       </div>
     </div>
 
@@ -82,7 +86,11 @@
           국토교통부 아파트 실거래가와 시세를 지도에서 한눈에!<br />
           원하는 지역의 아파트에 대한 거래내역 정보를 확인해보세요
         </div>
-        <v-btn color="#3876f2" class="white--text"> 시세 보러 가기</v-btn>
+        <router-link :to="{ name: 'houseProduct' }" class="link">
+          <v-btn color="#3876f2" class="white--text" width="100%">
+            시세 보러 가기</v-btn
+          >
+        </router-link>
       </div>
     </div>
 
@@ -112,12 +120,16 @@
           padding: 10px;
         "
       >
-        <div class="text-h5 font-weight-bold primary--text">3. 사기 찾기</div>
+        <div class="text-h5 font-weight-bold primary--text">3. 소통 하기</div>
         <div class="text-body-1 py-4">
-          갈수록 교묘해지는 사기수법..<br />
+          사람들과 자유롭게 정보를 공유하세요.<br />
           신종 전세 사기 수법 및 예방책을 공유하고 확인할 수 있습니다!
         </div>
-        <v-btn color="#3876f2" class="white--text"> 커뮤니티 보러 가기 </v-btn>
+        <router-link :to="{ name: 'boardReport' }" class="link">
+          <v-btn color="#3876f2" class="white--text" width="100%">
+            커뮤니티 보러 가기
+          </v-btn>
+        </router-link>
       </div>
     </div>
   </v-container>
