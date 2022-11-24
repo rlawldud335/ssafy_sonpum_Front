@@ -1,5 +1,5 @@
 <template>
-  <div v-if="houses && houses.length != 0">
+  <div v-if="houses != null && houses.length != 0">
     <v-expansion-panels>
       <v-expansion-panel v-for="(house, index) in houses" :key="index">
         <v-expansion-panel-header>

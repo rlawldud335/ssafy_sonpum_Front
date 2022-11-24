@@ -65,7 +65,7 @@ export default {
   },
   created() {
     this.CLEAR_SIDO_LIST();
-    // this.CLEAR_APT_LIST();
+    this.CLEAR_APT_LIST();
     this.getSido();
   },
   components: {
