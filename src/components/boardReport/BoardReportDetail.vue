@@ -2,7 +2,7 @@
   <v-container>
     <div class="detail-main">
       <div class="detail-title">
-        <p>Magento Forests</p>
+        <p>{{ report.subject }}</p>
       </div>
       <div style="height: 200px">
         <v-img
@@ -13,16 +13,18 @@
       </div>
 
       <div class="detail-autor">
-        <p>By 작성자</p>
+        <p>By [{{ report.userId }}] 작성자</p>
       </div>
       <div class="detail-info">
-        <p>작성일 | 조회수</p>
+        <p>
+          작성일[{{ report.regitime | regitime }}] | 조회수 [{{ report.hit }}]
+        </p>
       </div>
 
       <v-divider></v-divider>
 
       <div class="detail-content">
-        Travel to the best outdoor experience on planet Earth. A vacation you will never forget!
+        {{ report.content }}
       </div>
 
       <div class="detail-btn">
@@ -33,13 +35,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+const boardStore = "boardStore";
+
 export default {
+  name: "boardStore",
   data() {
     return {};
+  },
+  computed: {
+    ...mapState(boardStore, ["report"]),
   },
   methods: {
     moveListPage() {
       this.$router.push({ name: "BoardReportList" });
+    },
+  },
+  filters: {
+    regitime(value) {
+      return value;
     },
   },
 };

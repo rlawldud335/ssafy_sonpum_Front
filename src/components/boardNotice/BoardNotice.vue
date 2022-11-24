@@ -71,8 +71,8 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field
-                label="Desc"
-                v-model="newData.desc"
+                label="Content"
+                v-model="newData.content"
                 @keydown.enter="submit"
                 required
               >
@@ -110,7 +110,7 @@
         <v-container slot="content" grid-list-md>
           <v-layout wrap>
             <v-flex xs12>
-              <h3 v-text="selectedData.desc"></h3>
+              <h3 v-text="selectedData.content"></h3>
             </v-flex>
           </v-layout>
         </v-container>
@@ -145,8 +145,8 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field
-                label="Desc"
-                v-model="selectedData.desc"
+                label="Content"
+                v-model="selectedData.content"
                 required
                 @keydown.enter="editData"
               >
@@ -228,12 +228,12 @@ export default {
       newData: {
         id: Number,
         subject: "",
-        desc: "",
+        content: "",
       },
       selectedData: {
         id: Number,
         subject: "",
-        desc: "",
+        content: "",
       },
     };
   },
@@ -281,7 +281,7 @@ export default {
       const submitData = {
         id: this.newData.id,
         subject: this.newData.subject,
-        desc: this.newData.desc,
+        content: this.newData.content,
       };
       /*
         Ajax 통신 후
@@ -294,7 +294,7 @@ export default {
       const editData = {
         id: this.selectedData.id,
         subject: this.selectedData.subject,
-        desc: this.selectedData.desc,
+        content: this.selectedData.content,
       };
       /*
         Ajax 통신 후
@@ -325,7 +325,7 @@ export default {
       this.curSelectIndex = this.calIndex(index);
       this.selectedData.id = this.listData[this.curSelectIndex].id;
       this.selectedData.subject = this.listData[this.curSelectIndex].subject;
-      this.selectedData.desc = this.listData[this.curSelectIndex].desc;
+      this.selectedData.content = this.listData[this.curSelectIndex].content;
 
       this.viewDialog = true;
     },
@@ -333,7 +333,7 @@ export default {
       this.curSelectIndex = this.calIndex(index);
       this.selectedData.id = this.listData[this.curSelectIndex].id;
       this.selectedData.subject = this.listData[this.curSelectIndex].subject;
-      this.selectedData.desc = this.listData[this.curSelectIndex].desc;
+      this.selectedData.content = this.listData[this.curSelectIndex].content;
 
       this.editDialog = true;
     },
