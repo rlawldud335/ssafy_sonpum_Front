@@ -212,7 +212,7 @@ const houseProductStore = {
         ({ data }) => {
           console.log("# 매물 등록 성공 ", data);
 
-          // 매물 목록 내 추가
+          // 매물 목록 불러오기
           userProductList(
             userId,
             ({ data }) => {

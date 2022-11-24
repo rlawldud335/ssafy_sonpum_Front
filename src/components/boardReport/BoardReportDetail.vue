@@ -22,10 +22,7 @@
       </div>
 
       <v-divider></v-divider>
-
-      <div class="detail-content">
-        {{ report.content }}
-      </div>
+      <div v-html="report.content" class="detail-content"></div>
 
       <div class="detail-btn">
         <v-btn @click="moveListPage()">목록</v-btn>
