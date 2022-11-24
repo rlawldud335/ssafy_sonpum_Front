@@ -113,16 +113,20 @@ const houseDealStore = {
     },
     getHouseList: ({ commit }, dong) => {
       console.log("# 검색조건 가져오기 ", dong.dongCode, dong.key, dong.word);
+      if (dong.key == 'aptName') {
+        dong.key = "apartName";
+      }
       const params = {
         dongCode: dong.dongCode,
-        key: dong.searchKey,
-        word: dong.searchWord,
+        key: dong.key,
+        word: dong.word,
       };
+      
 
       houseDealList(
         params,
         ({ data }) => {
-          console.log("# 거래내역 가져오기 성공");
+          console.log("# 거래내역 가져오기 성공 ", data);
           const set = {};
           data.forEach((apt) => {
             if (!set[apt.apartName]) {

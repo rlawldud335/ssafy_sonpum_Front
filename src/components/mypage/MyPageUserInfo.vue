@@ -31,7 +31,8 @@
       <v-divider></v-divider>
       <div class="user-info-layout">
         <p class="user-info-layout-title">가입날짜</p>
-        <p class="user-info-layout-content">2022 / 11 / 10</p>
+        <!-- <p class="user-info-layout-content">2022 / 11 / 10</p> -->
+        <p class="user-info-layout-content">{{ userInfo.joindate | joindate }}</p>
       </div>
       <v-divider></v-divider>
       <div class="user-info-layout">

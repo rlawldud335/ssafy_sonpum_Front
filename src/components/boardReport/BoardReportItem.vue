@@ -12,7 +12,7 @@
           </v-card-text> -->
           <v-card-text>
             <h2 class="text-h6 primary--text">{{ report.subject }}</h2>
-            <h4 v-html="report.content"></h4>
+            <!-- <h4 v-html="report.content"></h4> -->
           </v-card-text>
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#3876f2">
@@ -45,7 +45,8 @@ export default {
       this.$router.push({ name: "BoardReportDetail" });
     },
   },
-  filters: {},
+  filters: {
+  },
 };
 </script>
 

@@ -256,6 +256,9 @@ const houseProductStore = {
             ({ data }) => {
               console.log("# 매물 리스트 가져오기 성공");
               console.log(data);
+              // 검색조건 clear
+              commit("CLEAR_SEARCH_KEY", null);
+              commit("CLEAR_SEARCH_WORD", null);
               commit("SET_PRODUCT_LIST", data);
             },
             (error) => {

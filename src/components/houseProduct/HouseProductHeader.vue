@@ -100,6 +100,7 @@ export default {
     productList() {
       console.log("# Header - 검색조건 ", this.searchKey, this.searchWord);
       //if (this.dongCode) this.getProductList(this.dongCode);
+      
       if (this.dongCode) {
         this.getProductList({
           dongCode: this.dongCode,
