@@ -23,17 +23,21 @@
             <v-btn class="mx-2" text> 회원정보 </v-btn>
           </router-link>
 
-          <router-link :to="{ name: 'MyBookMark' }">
+          <!-- <router-link :to="{ name: 'MyBookMark' }">
             <v-btn class="mx-2" text> 내가 북마크한 매물 </v-btn>
-          </router-link>
+          </router-link> -->
 
-          <router-link :to="{ name: 'MyHouseProduct' }">
-            <v-btn class="mx-2" text> 내가 등록한 매물 </v-btn>
-          </router-link>
+          <div v-if="(userInfo.role == 'CORP') | (userInfo.role == 'ADMIN')">
+            <router-link :to="{ name: 'MyHouseProduct' }">
+              <v-btn class="mx-2" text> 내가 등록한 매물 </v-btn>
+            </router-link>
+          </div>
 
-          <router-link :to="{ name: 'MyHouseProductReview' }">
-            <v-btn class="mx-2" text> 내가 등록한 매물 리뷰 </v-btn>
-          </router-link>
+          <div v-if="(userInfo.role == 'USER') | (userInfo.role == 'ADMIN')">
+            <router-link :to="{ name: 'MyHouseProductReview' }">
+              <v-btn class="mx-2" text> 내가 등록한 매물 리뷰 </v-btn>
+            </router-link>
+          </div>
         </div>
       </v-col>
 
