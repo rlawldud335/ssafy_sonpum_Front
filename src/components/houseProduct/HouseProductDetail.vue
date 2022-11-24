@@ -10,10 +10,10 @@
         </div>
 
         <v-divider></v-divider>
-        <div class="detail-content-layout">
+        <!-- <div class="detail-content-layout">
           <p class="detail-content-title">매물 번호</p>
           <p class="detail-content-content">{{ product.houseProductId }}</p>
-        </div>
+        </div> -->
         <v-divider></v-divider>
         <div class="detail-content-layout">
           <p class="detail-content-title">주소</p>
@@ -40,7 +40,7 @@
         <v-divider></v-divider>
         <div class="detail-content-layout">
           <p class="detail-content-title">거래유형</p>
-          <p class="detail-content-content">{{ product.dealType }}</p>
+          <p class="detail-content-content">{{ product.dealType | dealType }}</p>
         </div>
         <v-divider></v-divider>
         <div class="detail-content-layout">
@@ -70,8 +70,8 @@
         <p>💡 매물설명</p>
       </div>
       <v-divider></v-divider>
-      <div class="detail-body-content">
-        <p>{{ product.content }}</p>
+      <div v-html="product.content" class="detail-body-content">
+        <!-- <p>{{ product.content }}</p> -->
       </div>
     </div>
 
@@ -82,6 +82,10 @@
       <v-divider></v-divider>
       <div class="detail-body-content">
         <p>주변 상권</p>
+        <p>★ 특징 ★</p>
+        <p>✔ 6호선 구산역 도보 14분거리!</p>
+        <p>✔ 불광천, 근린공원과 가까워 살기 좋습니다.</p>
+        <p>✔ 카페, 편의점, 병원, 은행, 도서관, 마트, 주민센터 등 생활 인프라 좋습니다.</p>
       </div>
     </div>
 
@@ -98,43 +102,62 @@
     <v-divider></v-divider>
 
     <div class="detail-body-btns">
-      <v-btn color="primary">매물 삭제하기</v-btn>
-      <v-btn color="primary">매물 수정하기</v-btn>
+      <v-btn color="primary" @click="delProduct" v-if="userInfo.userId == product.userId">매물 삭제하기</v-btn>
+      <!-- <v-btn color="primary">매물 수정하기</v-btn> -->
       <v-btn color="error">매물 신고하기</v-btn>
     </div>
 
     <v-divider></v-divider>
-    <house-product-review :houseProductId="product.houseProductId"></house-product-review>
+    <!-- <house-product-review :houseProductId="product.houseProductId"></house-product-review> -->
+    <house-product-review v-if="userInfo != null"></house-product-review>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import RoadViewMap from "../map/RoadViewMap.vue";
 import HouseProductReview from "./HouseProductReview.vue";
 
 const houseProductStore = "houseProductStore";
+const memberStore = "memberStore";
 
 export default {
-  name: "HouseProductStore",
+  name: "HouseProductDetail",
   components: {
     RoadViewMap,
     HouseProductReview,
   },
   computed: {
     ...mapState(houseProductStore, ["product"]),
+    ...mapState(memberStore, ["userInfo"]),
+  },
+  methods: {
+    ...mapActions(houseProductStore, ["deleteProduct"]),
+    delProduct() {
+      this.deleteProduct(this.product.houseProductId);   // 매물 삭제 
+      this.$router.push({ name: "houseProduct" }); 
+    },
   },
   filters: {
+    dealType(value) {
+      if (value == "SALE") {
+        return "매매";
+      } else if (value == "YEAR") {
+        return "전세";
+      } else {
+        return "월세";
+      }
+    },
+    stateFlag(value) {
+      if (value == 0) {
+        return "판매중";
+      }else {
+        return "판매완료";
+      }
+    },
     price(value) {
       if (!value) return value;
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    stateFlag(value) {
-      if (value == 1) {
-        return "판매완료";
-      } else {
-        return "판매중";
-      }
     },
   },
   data() {
@@ -212,7 +235,7 @@ export default {
 .detail-body-content {
   /* background-color: teal; */
   padding: 15px;
-  height: 150px;
+  min-height: 150px;
 }
 
 .detail-body-btns {

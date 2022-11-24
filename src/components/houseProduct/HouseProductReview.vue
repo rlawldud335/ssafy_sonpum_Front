@@ -5,7 +5,7 @@
         <v-avatar size="36" color="pink">
           <v-icon dark> mdi-account-circle </v-icon>
         </v-avatar>
-        <p style="font-size: 1rem; margin: 0; margin-left: 10px">userId</p>
+        <p style="font-size: 1rem; margin: 0; margin-left: 10px">{{ userInfo.userId }}</p>
         <div>
           <v-rating
             v-model="review.rating"
@@ -23,26 +23,46 @@
         label="Review"
         type="text"
         v-model="review.content"
+        @keyup.enter = "writeReview"
       ></v-text-field>
     </div>
-    <div>리뷰리스트입니다</div>
+    <!-- <div>리뷰리스트입니다</div> -->
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
+const memberStore = "memberStore";
+const houseProductStore = "houseProductStore";
+
 export default {
   data() {
     return {
       review: {
-        houseProductId: null,
+        houseProductId: null, 
         userId: null,
         content: null,
         rating: null,
-        image: null,
+        image: "",
       },
     };
   },
-  props: ["houseProductId"],
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(houseProductStore, ["product"]),
+  },
+  methods: {
+    ...mapActions(houseProductStore, ["writeProductReview"]),
+    // houseProductId, userId, rating, content
+    writeReview() {
+      this.review.houseProductId = this.product.houseProductId;
+      this.review.userId = this.userInfo.userId;
+      console.log("# 작성한 review 확인 ", this.review);
+      this.writeProductReview(this.review);
+    },
+  },
+  //props: ["houseProductId"],
 };
 </script>
 

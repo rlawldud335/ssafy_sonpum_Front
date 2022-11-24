@@ -13,15 +13,28 @@ function productDetail(product, success, fail) {
   console.log("## product: ", product);
   api.get(`/houseProduct/${product.houseProductId}`).then(success).catch(fail);
 }
+function deleteHouseProduct(houseProductid, success, fail) {
+  console.log("## houseProductid: ", houseProductid);
+  api.delete(`/houseProduct/${houseProductid}`).then(success).catch(fail);
+}
+function reviewProduct(review, success, fail) {
+  console.log("## review: ", review);
+  api.post(`/houseProduct/review`).then(success).catch(fail);
+}
+// function reviewProductList(houseProductid, success, fail) {
+//   console.log("## houseProductid: ", houseProductid);
+//   api.post(`/houseProduct/review/${houseProductid}`).then(success).catch(fail);
+// }
 
+// /mypage/review/ssafy
 /* 마이페이지 - 매물 관련 */
 function userProductList(userid, success, fail) {
   console.log("## userId: ", userid);
   api.get(`/mypage/product/${userid}`).then(success).catch(fail);
 }
-function reviewHouseProductList(writerUserid, success, fail) {
-  console.log("## userId: ", writerUserid);
-  api.get(`/mypage/review/${writerUserid}`).then(success).catch(fail);
+function reviewHouseProductList(userid, success, fail) {
+  console.log("## userid: ", userid);
+  api.get(`/mypage/review/${userid}`).then(success).catch(fail);
 }
 function registerHouseProduct(inputProduct, success, fail) {
   console.log("## 매물 등록 params: ", inputProduct);
@@ -53,4 +66,7 @@ export {
   userProductList,
   reviewHouseProductList,
   registerHouseProduct,
+  deleteHouseProduct,
+  reviewProduct,
+  //reviewProductList,
 };

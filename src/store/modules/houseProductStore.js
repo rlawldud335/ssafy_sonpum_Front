@@ -5,6 +5,9 @@ import {
   userProductList,
   reviewHouseProductList,
   registerHouseProduct,
+  deleteHouseProduct,
+  reviewProduct,
+  //reviewProductList,
 } from "@/api/houseProduct.js";
 
 const houseProductStore = {
@@ -19,6 +22,7 @@ const houseProductStore = {
     userReviews: [],
     searchKey: null,
     searchWord: null,
+    reviews: [],
   },
   getters: {
     // ! for. 마커
@@ -94,6 +98,10 @@ const houseProductStore = {
       //state.userProducts = [];
       state.userProducts.push(product);
       console.log("# ADD_USER_PRODUCT_LIST: ", product);
+    },
+    SET_REVIEW_LIST(state, reviews) {
+      state.reviews = reviews;
+      console.log("# SET_REVIEW_LIST: ", reviews);
     },
   },
   actions: {
@@ -230,6 +238,64 @@ const houseProductStore = {
         }
       );
     },
+    deleteProduct: ({ commit }, houseProductid) => {
+      console.log("# 삭제할 매물ID: ", houseProductid);
+      
+      deleteHouseProduct(
+        houseProductid,
+        ({ data }) => {
+          console.log("# 매물 삭제 성공 ", data);
+          const params = {
+            dongCode: this.product.dongCode,
+            key: "",
+            word: "",
+          };
+    
+          houseProductList(
+            params,
+            ({ data }) => {
+              console.log("# 매물 리스트 가져오기 성공");
+              console.log(data);
+              // 검색조건 clear
+              commit("CLEAR_SEARCH_KEY", null);
+              commit("CLEAR_SEARCH_WORD", null);
+              commit("SET_PRODUCT_LIST", data);
+            },
+            (error) => {
+              console.log("# 매물 리스트 가져오기 실패" + error);
+            }
+          );
+        },
+        (error) => {
+          console.log("# 매물 삭제 Fail- ", error);
+        }
+      );
+    },
+    writeProductReview: ({ commit }, review) => {
+      console.log("# 작성할 review: ", review);
+
+      reviewProduct(
+        review,
+        ({ data }) => {
+          console.log("# review 작성 성공 ", data);
+          commit();
+          // review 목록
+          // reviewProductList(
+          //   review.houseProductId,
+          //   ({ data }) => {
+          //     console.log("# 리뷰 리스트 가져오기 성공", data);
+          //     commit("SET_REVIEW_LIST", data);
+          //   },
+          //   (error) => {
+          //     console.log("# 리뷰 리스트 가져오기 Fail- ", error);
+          //   }
+          // );
+        },
+        (error) => {
+          console.log("# review 작성 Fail-  ", error);
+        }
+      );
+    }
   },
 };
 
