@@ -4,6 +4,7 @@ import {
   productDetail,
   userProductList,
   reviewHouseProductList,
+  registerHouseProduct,
 } from "@/api/houseProduct.js";
 
 const houseProductStore = {
@@ -88,6 +89,11 @@ const houseProductStore = {
     SET_DETAIL_PRODUCT(state, product) {
       state.product = product;
       console.log("# SET_DETAIL_PRODUCT: ", product);
+    },
+    ADD_USER_PRODUCT_LIST(state, product) {
+      //state.userProducts = [];
+      state.userProducts.push(product);
+      console.log("# ADD_USER_PRODUCT_LIST: ", product);
     },
   },
   actions: {
@@ -194,6 +200,32 @@ const houseProductStore = {
         },
         (error) => {
           console.log("# USER가 등록한 리뷰 가져오기 Fail-", error);
+        }
+      );
+    },
+    registerProduct: ({ commit }, product) => {
+      console.log("# 등록할 매물: ", product);
+      const userId = product.userId;
+
+      registerHouseProduct(
+        product,
+        ({ data }) => {
+          console.log("# 매물 등록 성공 ", data);
+
+          // 매물 목록 불러오기
+          userProductList(
+            userId,
+            ({ data }) => {
+              console.log("# USER가 등록한 매물 목록 가져오기 성공");
+              commit("SET_USER_PRODUCT_LIST", data);
+            },
+            (error) => {
+              console.log("# USER가 등록한 매물 목록 가져오기 Fail-", error);
+            }
+          );
+        },
+        (error) => {
+          console.log("# 매물 등록 FAil- ", error);
         }
       );
     },
