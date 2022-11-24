@@ -1,21 +1,46 @@
 <template>
-  <div class="myhouse-product-main">
-    <div class="myhouse-product-title">
+  <div class="mypage-userinfo-main">
+    <div class="mypage-userinfo-title">
       <span>회원정보</span>
-      <div>
-        <p>ID {{ userInfo.userId }}</p>
-        <p>이름 {{ userInfo.userName }}</p>
-        <p>이메일 {{ userInfo.email }}</p>
-        <p>가입날짜 {{ userInfo.joindate }}</p>
-        <p>핸드폰 번호 {{ userInfo.phoneNumber }}</p>
-      </div>
       <div>
         <v-btn class="primary mx-3">수정하기</v-btn>
         <v-btn @click="withdrawalExcutor()" class="error">탈퇴하기</v-btn>
       </div>
     </div>
-
-    <div>회원정보</div>
+    <div class="mypage-userinfo-content">
+      <div class="user-info-layout">
+        <p class="user-info-layout-title">ID</p>
+        <p class="user-info-layout-content">
+          {{ userInfo.userId }}
+        </p>
+      </div>
+      <v-divider></v-divider>
+      <div class="user-info-layout">
+        <p class="user-info-layout-title">이름</p>
+        <p class="user-info-layout-content">
+          {{ userInfo.userName }}
+        </p>
+      </div>
+      <v-divider></v-divider>
+      <div class="user-info-layout">
+        <p class="user-info-layout-title">이메일</p>
+        <p class="user-info-layout-content">
+          {{ userInfo.email }}
+        </p>
+      </div>
+      <v-divider></v-divider>
+      <div class="user-info-layout">
+        <p class="user-info-layout-title">가입날짜</p>
+        <p class="user-info-layout-content">2022 / 11 / 10</p>
+      </div>
+      <v-divider></v-divider>
+      <div class="user-info-layout">
+        <p class="user-info-layout-title">전화번호</p>
+        <p class="user-info-layout-content">
+          {{ userInfo.phoneNumber }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,34 +67,45 @@ export default {
 };
 </script>
 
-<style>
-.user-info-main {
-  display: flex;
-  background-color: #cbd4e5;
-  flex-direction: column;
-  align-items: center;
+<style scoped>
+.mypage-userinfo-main {
   padding: 20px;
-  margin: 20px;
-  border-radius: 20px;
-  box-shadow: 0 5px 18px -7px rgb(133, 133, 133);
-}
-.user-id {
-  background-color: white;
-  padding: 5px;
-  border-radius: 10px;
-  font-size: 1.5rem;
-  margin: 10px;
 }
 
-.user-profile-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: #3876f2;
+.mypage-userinfo-title {
   display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.mypage-userinfo-content {
+  padding: 50px;
+}
+
+.user-info-layout {
+  display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  border: 3px solid white;
-  color: white;
+  padding: 20px;
+}
+
+.user-info-layout-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.user-info-layout-content {
+  font-size: 1rem;
+  width: 80%;
+}
+.v-application p {
+  margin: 0px;
 }
 </style>
