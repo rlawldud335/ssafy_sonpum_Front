@@ -31,12 +31,16 @@ export default {
       //console.log("# 1개 확인 ", this.houses["경희궁자이(4단지)"][0]);
 
       const positions = [];
+      const forSetCenter = [];
       for (var key in this.houses) {
         let house = this.houses[key];
         positions.push({
           title: house[0].apartName,
           latlng: new kakao.maps.LatLng(house[0].lat, house[0].lng),
         });
+
+        forSetCenter[0] = house[0].lat;
+        forSetCenter[1] = house[0].lng;
       }
       console.log("# 만든 마커 객체배열 확인 ", positions);
 
@@ -59,6 +63,13 @@ export default {
         this.markers.push(marker);
       }
       marker.setMap(this.map);
+
+      // * 해당 위치로 map 이동
+      // 이동할 위도 경도 위치를 생성합니다
+      console.log("# 지도 중심좌표 확인 ", forSetCenter);
+      var moveLatLon = new kakao.maps.LatLng(forSetCenter[0], forSetCenter[1]);
+      // 지도 중심을 이동 시킵니다
+      this.map.setCenter(moveLatLon);
     },
   },
   mounted() {
@@ -78,8 +89,8 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(37.5013, 127.0397),
-        //level: 3,
-        level: 15,
+        level: 3,
+        //level: 15,
       };
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
