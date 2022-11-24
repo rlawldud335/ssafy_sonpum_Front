@@ -2,6 +2,7 @@ import {
   noticeListArticle,
   reportListArticle,
   detailReport,
+  reportWriteArticle,
 } from "@/api/board.js";
 
 const boardStore = {
@@ -89,6 +90,35 @@ const boardStore = {
         },
         (error) => {
           console.log("# 사기수법 상세조회 data 가져오기 Fail- ", error);
+        }
+      );
+    },
+    registerReportArticle: ({ commit }, report) => {
+      console.log("# 사기수법 게시글 작성 ", report);
+
+      reportWriteArticle(
+        report,
+        ({ data }) => {
+          console.log("# 사기수법 게시글 등록 성공", data);
+
+          // 사기수법 게시글 목록 불러오기
+          const params = {
+            key: "",
+            word: "",
+          };
+          reportListArticle(
+            params,
+            ({ data }) => {
+              console.log("# 사기수법 게시글 목록 가져오기 성공 ", data);
+              commit("SET_REPORT_LIST", data);
+            },
+            (error) => {
+              console.log("# 사기수법 게시글 가져오기 Fail- ", error);
+            }
+          );
+        },
+        (error) => {
+          console.log("# 사기수법 게시글 작성 Fail- ", error);
         }
       );
     },
