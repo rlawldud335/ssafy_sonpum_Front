@@ -21,13 +21,14 @@
         style="
           width: 40%;
           height: 250px;
-          background-color: gray;
+          background-color: #f7cf91;
           border-radius: 20px;
         "
       >
         <v-img
-          :src="require('@/assets/img/house.jpg')"
+          :src="require('@/assets/img/house3.jpg')"
           style="width: 100%; height: 100%; border-radius: 20px"
+          contain
         ></v-img>
       </div>
       <div
@@ -55,13 +56,14 @@
         style="
           width: 40%;
           height: 250px;
-          background-color: gray;
+          background-color: #c7daeb;
           border-radius: 20px;
         "
       >
         <v-img
-          :src="require('@/assets/img/money.jpg')"
+          :src="require('@/assets/img/money8.jpg')"
           style="width: 100%; height: 100%; border-radius: 20px"
+          contain
         ></v-img>
       </div>
       <div
@@ -89,10 +91,16 @@
         style="
           width: 40%;
           height: 250px;
-          background-color: gray;
+          background-color: #bca1e4;
           border-radius: 20px;
         "
-      ></div>
+      >
+        <v-img
+          :src="require('@/assets/img/community2.jpg')"
+          style="width: 100%; height: 100%; border-radius: 20px"
+          contain
+        ></v-img>
+      </div>
       <div
         style="
           width: 30%;

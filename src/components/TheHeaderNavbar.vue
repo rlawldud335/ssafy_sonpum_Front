@@ -21,7 +21,7 @@
       </router-link>
 
       <router-link :to="{ name: 'boardReport' }" class="link">
-        <v-btn class="mx-2" text> 사기 </v-btn>
+        <v-btn class="mx-2" text> 커뮤니티 </v-btn>
       </router-link>
     </div>
 
@@ -30,16 +30,17 @@
     <!-- after login -->
     <div v-if="userInfo">
       <!-- <div> -->
-      <v-btn @click="moveMyPage()">
+      <v-btn color="primary" @click="moveMyPage()" style="margin-right: 10px">
         <v-badge top bordered color="red" offset-x="10" offset-y="10" dot>
-          <v-avatar color="purple" size="27px">
+          <v-avatar color="purple" size="25px">
             <span class="white--text text-h7">USR</span>
           </v-avatar>
         </v-badge>
+        <span style="margin-left: 10px">마이페이지</span>
         <!-- <span class="pl-1">김싸피 사용자</span> -->
         <!-- <span class="pl-1">{{ userInfo.userId }}</span> -->
       </v-btn>
-      <v-btn @click="logoutExcutor()">로그아웃</v-btn>
+      <v-btn color="error" @click="logoutExcutor()">로그아웃</v-btn>
     </div>
     <!-- before login -->
     <div v-else>

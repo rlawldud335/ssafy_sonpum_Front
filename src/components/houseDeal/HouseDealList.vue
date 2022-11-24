@@ -2,15 +2,15 @@
   <div v-if="houses != null && houses.length != 0">
     <v-expansion-panels>
       <v-expansion-panel v-for="(house, index) in houses" :key="index">
-        <v-expansion-panel-header>
+        <v-expansion-panel-header style="font-size: 1rem">
           {{ house[0].apartName + " (" + house.length + ")" }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
+          <p style="font-size: 0.9rem">년도별 가격 변화</p>
           <div style="margin: 20px">
-            <p style="font-size: 1rem; font-weight: bold">년도별 가격 변화</p>
             <v-sheet
               class="v-sheet--offset mx-auto"
-              color="cyan"
+              color="#3876f2"
               elevation="12"
               max-width="calc(100% - 32px)"
             >
@@ -25,7 +25,7 @@
           </div>
 
           <div>
-            <p style="font-size: 1rem; font-weight: bold">거래 목록</p>
+            <p style="font-size: 0.9rem">거래 목록</p>
             <house-deal-list-item :house="house"></house-deal-list-item>
           </div>
         </v-expansion-panel-content>

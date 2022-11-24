@@ -8,25 +8,10 @@
         <p>이메일 {{ userInfo.email }}</p>
         <p>가입날짜 {{ userInfo.joindate }}</p>
         <p>핸드폰 번호 {{ userInfo.phoneNumber }}</p>
-        <!-- <p v-if="userInfo.role.equals('CORP')">신고 횟수 {{ userInfo.reportCount }}</p> -->
       </div>
       <div>
         <v-btn class="primary mx-3">수정하기</v-btn>
         <v-btn @click="withdrawalExcutor()" class="error">탈퇴하기</v-btn>
-        <!-- <v-dialog v-model="passwordDialog" max-width="600px">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="ml-2 white--text"
-            color="#3876f2"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            비밀번호 재설정
-          </v-btn>
-        </template>
-        <password-dialog v-on:close-password-dialog="closePasswordDialog"></password-dialog>
-      </v-dialog> -->
       </div>
     </div>
 
@@ -42,11 +27,9 @@ const memberStore = "memberStore";
 export default {
   name: "MyPageUserInfo",
   data() {
-    return {
-    };
+    return {};
   },
-  components: {
-  },
+  components: {},
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },

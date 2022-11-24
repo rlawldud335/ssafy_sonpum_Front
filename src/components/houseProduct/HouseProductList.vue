@@ -1,5 +1,5 @@
 <template>
-  <div class="house-deal-content" v-if="products && products.length != 0">
+  <div class="house-product-content" v-if="products && products.length != 0">
     <house-product-item
       v-for="(product, index) in products"
       :key="index"
@@ -36,5 +36,10 @@ export default {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+}
+
+.house-product-content {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
