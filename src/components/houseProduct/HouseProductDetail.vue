@@ -10,10 +10,10 @@
         </div>
 
         <v-divider></v-divider>
-        <div class="detail-content-layout">
+        <!-- <div class="detail-content-layout">
           <p class="detail-content-title">매물 번호</p>
           <p class="detail-content-content">{{ product.houseProductId }}</p>
-        </div>
+        </div> -->
         <v-divider></v-divider>
         <div class="detail-content-layout">
           <p class="detail-content-title">주소</p>
@@ -40,7 +40,7 @@
         <v-divider></v-divider>
         <div class="detail-content-layout">
           <p class="detail-content-title">거래유형</p>
-          <p class="detail-content-content">{{ product.dealType }}</p>
+          <p class="detail-content-content">{{ product.dealType | dealType }}</p>
         </div>
         <v-divider></v-divider>
         <div class="detail-content-layout">
@@ -72,8 +72,8 @@
         <p>💡 매물설명</p>
       </div>
       <v-divider></v-divider>
-      <div class="detail-body-content">
-        <p>{{ product.content }}</p>
+      <div v-html="product.content" class="detail-body-content">
+        <!-- <p>{{ product.content }}</p> -->
       </div>
     </div>
 
@@ -122,17 +122,22 @@ export default {
     ...mapState(houseProductStore, ["product"]),
   },
   filters: {
-    price(value) {
-      if (!value) return value;
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    stateFlag(value) {
-      if (value == 1) {
-        return "판매완료";
+    dealType(value) {
+      if (value == "SALE") {
+        return "매매";
+      } else if (value == "YEAR") {
+        return "전세";
       } else {
-        return "판매중";
+        return "월세";
       }
     },
+    stateFlag(value) {
+      if (value == 0) {
+        return "판매중";
+      }else {
+        return "판매완료";
+      }
+    }
   },
   data() {
     return {
@@ -209,7 +214,7 @@ export default {
 .detail-body-content {
   /* background-color: teal; */
   padding: 15px;
-  height: 150px;
+  min-height: 150px;
 }
 
 .detail-body-btns {
