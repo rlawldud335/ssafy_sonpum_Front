@@ -6,9 +6,7 @@
     >
       <div style="display: flex; justify-content: space-between">
         <p style="font-size: 1.2rem; font-weight: bold">손품 공지사항</p>
-        <!-- #HE# 관리자일때만 버튼 보이게 하고싶은데 안됨 ㅠㅠㅠ -->
-        <!-- <div v-if="userInfo.role == 'ADMIN'"> -->
-        <div>
+        <div v-if="userInfo != null && userInfo.role == 'ADMIN'">
           <v-btn dark color="#3876f2" @click="onAdd"> 글쓰기 </v-btn>
         </div>
       </div>
@@ -110,7 +108,8 @@
         <v-container slot="content" grid-list-md>
           <v-layout wrap>
             <v-flex xs12>
-              <h3 v-text="selectedData.content"></h3>
+              <!-- <h3 v-text="selectedData.content"></h3> -->
+              <div v-html="selectedData.content"></div>
             </v-flex>
           </v-layout>
         </v-container>

@@ -43,7 +43,8 @@
       >
         <div class="text-h5 font-weight-bold primary--text">1. 매물 찾기</div>
         <div class="text-body-1 py-4">
-          빠르게 원하는 조건의 아파트 매물을 찾아보세요!
+          직접 지역에 방문하지 않고 SONPUM을 통해 <br />
+          원하는 지역과 조건의 매물을 쉽게 찾아볼 수 있습니다!
         </div>
         <v-btn color="#3876f2" class="white--text"> 매물 보러 가기</v-btn>
       </div>
@@ -76,7 +77,8 @@
       >
         <div class="text-h5 font-weight-bold primary--text">2. 시세 찾기</div>
         <div class="text-body-1 py-4">
-          원하는 지역을 선택하여 최근 아파트 거래내역을 살펴보세요!
+          국토교통부 아파트 실거래가와 시세를 지도에서 한눈에!<br />
+          원하는 지역의 아파트에 대한 거래내역 정보를 확인해보세요
         </div>
         <v-btn color="#3876f2" class="white--text"> 시세 보러 가기</v-btn>
       </div>
@@ -104,10 +106,10 @@
       >
         <div class="text-h5 font-weight-bold primary--text">3. 사기 찾기</div>
         <div class="text-body-1 py-4">
-          It should work with colors defined in your theme as well e.g.
-          primary--text and similar.
+          갈수록 교묘해지는 사기수법..<br />
+          신종 전세 사기 수법 및 예방책을 공유하고 확인할 수 있습니다!
         </div>
-        <v-btn color="#3876f2" class="white--text"> 사기 보러 가기</v-btn>
+        <v-btn color="#3876f2" class="white--text"> 커뮤니티 보러 가기 </v-btn>
       </div>
     </div>
   </v-container>

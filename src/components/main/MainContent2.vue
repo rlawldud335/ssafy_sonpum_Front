@@ -19,10 +19,20 @@
 
           <v-row justify="center">
             <div class="col-3">
-              <v-select rounded :items="items" label="시도 선택" solo></v-select>
+              <v-select
+                rounded
+                :items="items"
+                label="시도 선택"
+                solo
+              ></v-select>
             </div>
             <div class="col-3">
-              <v-select rounded :items="items" label="구군 선택" solo></v-select>
+              <v-select
+                rounded
+                :items="items"
+                label="구군 선택"
+                solo
+              ></v-select>
             </div>
             <div class="col-3">
               <v-select rounded :items="items" label="동 선택" solo></v-select>
