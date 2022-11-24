@@ -9,11 +9,22 @@
           rounded
           dense
           background-color="white"
+          :v-model="report.subject"
         ></v-text-field>
       </div>
 
       <div>
-        <text-editor></text-editor>
+        <tiptap-vuetify v-model="report.content" :extensions="extensions" />
+      </div>
+
+      <div style="width: 20%">
+        <v-file-input
+          :rules="rules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="Pick an Images"
+          prepend-icon="mdi-camera"
+          label="Images"
+        ></v-file-input>
       </div>
 
       <div class="write-btns">
@@ -25,15 +36,66 @@
 </template>
 
 <script>
-import TextEditor from "@/components/textEditor/TextEditor.vue";
+import {
+  TiptapVuetify,
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History,
+} from "tiptap-vuetify";
 
 export default {
   name: "BoardReportWrite",
   components: {
-    TextEditor,
+    TiptapVuetify,
   },
   data() {
-    return {};
+    return {
+      report: {
+        userId: null,
+        subject: null,
+        content: `
+      <h1>Yay Headlines!</h1>
+      <p>All these <strong>cool tags</strong> are working now.</p>
+    `,
+        files: null,
+      },
+      extensions: [
+        History,
+        Blockquote,
+        Link,
+        Underline,
+        Strike,
+        Italic,
+        ListItem,
+        BulletList,
+        OrderedList,
+        [
+          Heading,
+          {
+            options: {
+              levels: [1, 2, 3],
+            },
+          },
+        ],
+        Bold,
+        Code,
+        HorizontalRule,
+        Paragraph,
+        HardBreak,
+      ],
+    };
   },
   methods: {
     moveListPage() {
