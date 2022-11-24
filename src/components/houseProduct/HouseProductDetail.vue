@@ -98,13 +98,14 @@
     <v-divider></v-divider>
 
     <div class="detail-body-btns">
-      <v-btn color="primary" @click="delProduct">매물 삭제하기</v-btn>
-      <v-btn color="primary">매물 수정하기</v-btn>
+      <v-btn color="primary" @click="delProduct" v-if="userInfo.userId == product.userId">매물 삭제하기</v-btn>
+      <!-- <v-btn color="primary">매물 수정하기</v-btn> -->
       <v-btn color="error">매물 신고하기</v-btn>
     </div>
 
     <v-divider></v-divider>
-    <house-product-review :houseProductId="product.houseProductId"></house-product-review>
+    <!-- <house-product-review :houseProductId="product.houseProductId"></house-product-review> -->
+    <house-product-review v-if="userInfo != null"></house-product-review>
   </v-container>
 </template>
 
@@ -114,6 +115,7 @@ import RoadViewMap from "../map/RoadViewMap.vue";
 import HouseProductReview from "./HouseProductReview.vue";
 
 const houseProductStore = "houseProductStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseProductDetail",
@@ -123,6 +125,7 @@ export default {
   },
   computed: {
     ...mapState(houseProductStore, ["product"]),
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
     ...mapActions(houseProductStore, ["deleteProduct"]),

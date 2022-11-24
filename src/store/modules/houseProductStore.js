@@ -6,6 +6,8 @@ import {
   reviewHouseProductList,
   registerHouseProduct,
   deleteHouseProduct,
+  reviewProduct,
+  //reviewProductList,
 } from "@/api/houseProduct.js";
 
 const houseProductStore = {
@@ -20,6 +22,7 @@ const houseProductStore = {
     userReviews: [],
     searchKey: null,
     searchWord: null,
+    reviews: [],
   },
   getters: {
     // ! for. 마커
@@ -95,6 +98,10 @@ const houseProductStore = {
       //state.userProducts = [];
       state.userProducts.push(product);
       console.log("# ADD_USER_PRODUCT_LIST: ", product);
+    },
+    SET_REVIEW_LIST(state, reviews) {
+      state.reviews = reviews;
+      console.log("# SET_REVIEW_LIST: ", reviews);
     },
   },
   actions: {
@@ -261,6 +268,31 @@ const houseProductStore = {
         }
       );
     },
+    writeProductReview: ({ commit }, review) => {
+      console.log("# 작성할 review: ", review);
+
+      reviewProduct(
+        review,
+        ({ data }) => {
+          console.log("# review 작성 성공 ", data);
+          commit();
+          // review 목록
+          // reviewProductList(
+          //   review.houseProductId,
+          //   ({ data }) => {
+          //     console.log("# 리뷰 리스트 가져오기 성공", data);
+          //     commit("SET_REVIEW_LIST", data);
+          //   },
+          //   (error) => {
+          //     console.log("# 리뷰 리스트 가져오기 Fail- ", error);
+          //   }
+          // );
+        },
+        (error) => {
+          console.log("# review 작성 Fail-  ", error);
+        }
+      );
+    }
   },
 };
 
